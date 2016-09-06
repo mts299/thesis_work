@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{authblk}
+
+\title{Designing error control circuits for 4-qubit quantum computing}
+\author[1]{Marina Schmidt}
+\author[1]{Dr. R. Spiteri}
+\affil[1]{Department of Computer Science, University of Saskatchewan}
+\affil[ ]{Email: \textit {mts299@mail.usask.ca}}
+\affil[ ]{NSID: mts299}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+Quantum computing offers the promise of a spectral leap in performance compared to transistor-based computers. The performance increase is achieved by the ability of a quantum bit to represent a relatively large number of states. Accordingly, less time is needed to read and write a given bit string when compared to classical computer, and a larger architecture size can be represented. However, with the promise of increased performance comes the obligation of increased error checking and
+    correction of qubits in order to guarantee sufficient robustness to fault tolerance. To guarantee robust fault tolerance in a practical quantum computing system, an error control with an intrinsic (theoretical) fidelity of $99.99\%$. 
+%
+This fidelity value is required because of the electric current pulse used to control a qubit system in a controlled not gate, with additive noise known as the gate fidelity, resulting fault tolerance guarantee such that all common errors to occur will be
+    corrected. 
+% previous sentence needs work
+We have achieved a circuit design with intrinsic fidelity of $99.9908\%$ at a processing time of 75 nanoseconds. 
+% "processing time" needs explaining
+The search took 3 months of computer time to find a feasible solution with the help of Matlab's Global Optimization Toolbox. This finding will allow experimentalists to build such a device and tackle even harder problems, applied to areas such as networking and security, than the current three-qubit systems are capable of handling.
+
+\end{abstract}
+
+\end{document}
