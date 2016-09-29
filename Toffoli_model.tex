@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\begin{document}
+
+
+\section{Toffolli single shot model}
+
+The Toffoli circuit is well known circuit in the quantum processor desgins because of its overall advantages of being efficient when processing qubit information. As mentioned before qubits can store $2^N$, N classical bits but need specifica logical operations to obtain the resulting superpositioned states. One method of doing this taht the tofolli circuit uses is the phase gate, by altering the phase shift in a magnetic wave specific readings can be read from the qubit system. However, decoherence is still a factor that can cause noise in the returning pulse. To guarantee fault tolerance in the toffoli circuit, controlled NOT (CNOT) gates are used to correct for the quantum noise in the qubit system.
+
+To determine the controlled parameters of the CNOT gate to correct for the quantum noise a simulation needs to be conducted to determine the highest fidelity. In this simulation only the theoretical fidelity known as the instrisic fidelity is evaluated. The overall goal threshold value for the intrisic fidelity is $99.99\%$ because of the trade off between overall gate time to correct the pulse and what is sufficient enough to correct any errors in the qubit system. Remember there is decoherence time that places an upper limit on overall gate time for CNOT gate correction before the qubit information is lost.
+
+The CNOT gate in the model is shown as the controlled Hamiltonian matrix is the vector operator: $\mathbf{\hat{H}^c}$, that is influenced by the controlled parameters $\varepsilon(t)$ that determine the phase of the frequency to correct the qubit system. Then to consider the qubit system that is non controlled is expressed as the drift Hamiltonian, $\hat{H}^{dr}$. The overall Hamiltonian of the qubit system is: 
+
+\begin{equation}
+ \hat{H}\big( \epsilon (t) \big) = \hat{H}^{dr} + \epsilon(t) \dot  \mathbf{\hat{H}^c}
+\end{equation}
+
+
+The system can further be expressed over time by unitary evolution operator:
+
+\begin{center}
+\begin{align*}
+  \tilde{U}(\epsilon(t);\tau) = T e^{\Big\{ -i \int_{0}^{\tau} \hat{H}(\epsilon(t))dt \Big\} } 
+\end{align*}
+\end{center}
+
+To determine how well the system is corrected an target unitary evolution operator, $U$ ,is chosen based on the gate design. The fidelity of the simulation is then defined as:
+\begin{center}
+\begin{align}
+  \mathscr(F)(\epsilon(t)) = \frac{1}{N} Re \Big(Tr \big(U\tilde{U}(\epsilon(t))\big) \Big)
+\end{align}
+\end{center}
+
+Representing the objective function that is optimized for the maximum intrinsic fidelity to meet the threshold of $99.99\%$. 
+
+\end{document}
+
