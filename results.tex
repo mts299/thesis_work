@@ -1,0 +1,33 @@
+\section{Results}
+
+By optimizing the four qubit system as a feasibility problem we obtained solutions for the circuit constants that exceeded the $0.9999$ threshold (Table~\ref{results1}).
+
+\begin{table}
+  \begin{tabular}{c|c|c}
+    \hline   $T$ $(ns)$  & Intrinsic fidelity & CPU time \\
+    \hline
+    $150$ & $1.0$ & 1 week \\
+    $120$ & $0.999977$ & 1 week \\  
+    $75$  & $0.999908$ & 3 months\\
+    $65$  & $0.999907$ &1 week \\  
+    $60$  & $0.999978$ &1 week\\\hline
+  \end{tabular}
+  \label{results1}
+\end{table}
+
+As shown in Table~\ref{results1} the lowest gate processing time is $60$ nanoseconds, this does meet constraint of being lower than the decohernce time. However, for experimental purposes minimal gate time should be to a resolution of one nanosecond. 
+Because of this request, Table~\ref{results2} show the current running optimizations to find the minimal gate time. 
+
+\begin{table}
+  \begin{tabular}{c | c | c } 
+    \hline  $T$ $(ns)$  & Intrinsic fidelity & CPU time \\
+    \hline
+    $73$  & $0.999735$ & 13 days \\
+    $72$  & $0.999762$ & 13 days\\
+    $71$  & $0.999744$ & 13 days\\
+    $70$  & $0.999795$ & 3 months \\
+    $65$  & $0.999785$ & 3 months \\ \hline
+  \end{tabular}
+  \label{results2}
+\end{table}
+

@@ -14,7 +14,7 @@ To determine the controlled parameters of the CNOT gate to correct for the quant
 The CNOT gate in the model is shown as the controlled Hamiltonian matrix is the vector operator: $\mathbf{\hat{H}^c}$, that is influenced by the controlled parameters $\varepsilon(t)$ that determine the phase of the frequency to correct the qubit system. Then to consider the qubit system that is non controlled is expressed as the drift Hamiltonian, $\hat{H}^{dr}$. The overall Hamiltonian of the qubit system is: 
 
 \begin{equation}
- \hat{H}\big( \epsilon (t) \big) = \hat{H}^{dr} + \epsilon(t) \dot  \mathbf{\hat{H}^c}
+ \hat{H}\big( \varepsilon (t) \big) = \hat{H}^{dr} + \varepsilon(t) \dot  \mathbf{\hat{H}^c}
 \end{equation}
 
 
@@ -22,14 +22,14 @@ The system can further be expressed over time by unitary evolution operator:
 
 \begin{center}
 \begin{align*}
-  \tilde{U}(\epsilon(t);\tau) = T e^{\Big\{ -i \int_{0}^{\tau} \hat{H}(\epsilon(t))dt \Big\} } 
+  \tilde{U}(\varepsilon(t);\tau) = T e^{\Big\{ -i \int_{0}^{\tau} \hat{H}(\varepsilon(t))dt \Big\} } 
 \end{align*}
 \end{center}
 
 To determine how well the system is corrected an target unitary evolution operator, $U$ ,is chosen based on the gate design. The fidelity of the simulation is then defined as:
 \begin{center}
 \begin{align}
-  \mathscr(F)(\epsilon(t)) = \frac{1}{N} Re \Big(Tr \big(U\tilde{U}(\epsilon(t))\big) \Big)
+  \mathscr{F}(\varepsilon(t)) = \frac{1}{N} Re \Big(Tr \big(U\tilde{U}(\varepsilon(t))\big) \Big)
 \end{align}
 \end{center}
 

@@ -1,0 +1,23 @@
+\usepackage{mathrsfs}
+\section{Method}
+
+The chosen software to solve this problem was Global Search from MATLABs global optimization toolbox because of the ability to apply constraints. The constraint in four qubit system is that the intrinsic fidelity determined calculated by the model needs only to exceed $99.99\%$ to be consider satisfiable for experimentation.
+\begin{equation}
+  \mathsc{F}\big(\varepsilon(t)\big) \geq 0.9999
+  \label{constraint}
+\end{equation}
+ This is because of the trade off between overall gate time for correcting the system and acceptable level of robustness for fault tolerance. As well
+the constraint that the overall gate processing time cannot be exceed the decoherence time or else error correction can not be achieved. 
+
+As shown in Figure \ref{globalsearch}, the global search algorithm is hybrid method that uses fmincon as the local solver. The objective function in this optimization scheme is defaulted to zero: 
+\begin{equation}
+  f(x) = 0
+\end{equation}
+where the actual calculation is done in the constraint (Eq.~\ref{constraint}) function. 
+
+Previous attempts have been made to solve the four qubit system with a simple optimization scheme by solving for the maximum fidelity value:
+\begin{equation}
+  max \big(\mathsc{F}\big) 
+\end{equation}
+
+
