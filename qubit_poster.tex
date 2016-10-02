@@ -1,663 +1,204 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                       May 2005                                   %%%
-%%%	                                    				               %%%
-%%%                a0 poster latex document		                     %%%
-%%%       based on template supplied by Andreas Jung                 %%%
-%%%           of the University of Regensburg.                       %%%
-%%%             For more info, see README file                       %%%
-%%%					                                   	               %%%
-%%%                   Andrea Taroni, UCL                             %%%
-%%% http://www.ucl.ac.uk/~uccaata/work/poster/poster.html            %%%
-%%%                                                                  %%%
-%%% NB. To print poster in a4 format, place                          %%%
-%%%  \documentclass[landscape,a0b,final,a4resizeable]{a0poster}      %%%
-%%% in your first line of your tex-file after compiling,             %%%
-%%% run the program:  psresize -W595 -H842 poster.ps poster-a4.ps    %%%
-%%% Then replace in "poster-a4.ps" the line:                         %%%
-%%%  %%BoundingBox: 0 0 2594 3402  with  %%BoundingBox: 0 0 595 842  %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% baposter Landscape Poster
+% LaTeX Template
+% Version 1.0 (11/06/13)
+%
+% baposter Class Created by:
+% Brian Amberg (baposter@brian-amberg.de)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% !TEX TS-program = pdflatex
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
 
-%\documentclass[landscape,a0b,final,a4resizeable]{a0poster}
-\documentclass[landscape,a0b,final]{a0poster}
-%%% Option "a4resizeable" makes it possible ot resize the
-%   poster by the command: psresize -pa4 poster.ps poster-a4.ps
-%   For final printing, remove option "a4resizeable" !!
+\documentclass[landscape,a0paper,fontscale=0.285]{baposter} % Adjust the font scale/size here
 
-\usepackage{epsfig}
-\usepackage{multicol}
-\usepackage{multirow}
-\usepackage{amsmath}
-\usepackage{times}
-%\usepackage{multirow}
-%\usepackage{amsbsy}
-\usepackage{amsfonts}
-\usepackage{graphics}
-\usepackage{graphicx, alltt, setspace}
-%\usepackage{keyval}
-\usepackage{caption2}
-\usepackage{pstricks,pst-grad}
-\graphicspath{{figures/}}
-\usepackage[it]{subfigure}
-\usepackage{subfigure}
-\usepackage{url}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Definition of some variables and colours
-%\renewcommand{\rho}{\varrho}
-%\renewcommand{\phi}{\varphi}
-\setlength{\columnsep}{3cm}
-\setlength{\columnseprule}{2mm}
-\setlength{\parindent}{0.0cm}
-% Some commands that may be useful from my cache of self-defined commands
- \newcommand{\bm}[1]{\mathbf{#1}}
-\newcommand{\ol}{\overline}
-\newcommand{\df}[2]{\frac{d #1}{d #2}}
-\newcommand{\mV}{\mbox{\rm mV}}
-\newcommand{\lb}{\left}
-\newcommand{\rb}{\right}
-\newcommand{\atol}{\texttt{atol}}
-\newcommand{\rtol}{\texttt{rtol}}
-\newcommand{\dt}{\Delta t}
-\newcommand{\Na}{\mathrm{Na}}
-\newcommand{\Ca}{\mathrm{Ca}}
-\newcommand{\K}{\mathrm{K}}
-\newcommand{\beq}{\begin{equation}}
-\newcommand{\eeq}{\end{equation}}
-\newcommand{\beqa}{\begin{eqnarray*}}
-\newcommand{\eeqa}{\end{eqnarray*}}
-\newcommand{\reword}[1]{  \textbf{#1} }
-\newcommand{\ff}{\bm f}
-\newcommand{\yy}{\bm y}
-\newcommand{\DtMax}{\Delta t_{\text{max}}}
-\newtheorem{proposition}{Proposition}[section]
+\usepackage{graphicx} % Required for including images
+\graphicspath{{figures/}} % Directory in which figures are stored
 
-\newtheorem{definition}[proposition]{Definition}
-\newtheorem{remark}[proposition]{Remark}
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+\usepackage{mathrsfs}  
+\usepackage{amsmath} % For typesetting math
+\usepackage{amssymb} % Adds new symbols to be used in math mode
 
-	
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%               Background                     %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{booktabs} % Top and bottom rules for tables
+\usepackage{enumitem} % Used to reduce itemize/enumerate spacing
+\usepackage{palatino} % Use the Palatino font
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
 
-\newcommand{\background}[3]{
-  \newrgbcolor{cgradbegin}{#1}
-  \newrgbcolor{cgradend}{#2}
+\usepackage{multicol} % Required for multiple columns
+\setlength{\columnsep}{1.5em} % Slightly increase the space between columns
+\setlength{\columnseprule}{0mm} % No horizontal rule between columns
 
-  % Frame around poster
-  \psframe[fillstyle=gradient,gradend=cgradend,
-  gradbegin=cgradbegin,gradmidpoint=#3](0.,0.)(1.\textwidth,-1.\textheight)
+\usepackage{tikz} % Required for flow chart
+\usetikzlibrary{shapes,arrows} % Tikz libraries required for the flow chart in the template
+
+\newcommand{\compresslist}{ % Define a command to reduce spacing within itemize/enumerate environments, this is used right after \begin{itemize} or \begin{enumerate}
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                Poster                        %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newenvironment{poster}{
-  \begin{center}
-  \begin{minipage}[c]{0.98\textwidth}
-}{
-  \end{minipage} 
-  \end{center}
-}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                pcolumn                       %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newenvironment{pcolumn}[1]{
-  \begin{minipage}{#1\textwidth}
-  \begin{center}
-}{
-  \end{center}
-  \end{minipage}
-}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                pbox                          %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%Test this one first
-\newrgbcolor{lcolor}{0. 0. 0.80}
-\newrgbcolor{gcolor1}{1. 1. 1.}
-\newrgbcolor{gcolor2}{.80 .80 1.}
-\newcommand{\pbox}[4]{
-\psshadowbox[#3]{
-\begin{minipage}[t][#2][t]{#1}
-#4
-\end{minipage}
-}}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                myfig                         %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \myfig - replacement for \figure
-% necessary, since in multicol-environment 
-% \figure won't work
-
-\newcommand{\myfig}[3][0]{
-\begin{center}
-  \vspace{0.5cm} %{1.5cm}
-  \includegraphics[width=#3\hsize,angle=#1]{#2}
-  \nobreak\medskip
-\end{center}}
-
-\newcommand{\myfigsub}[2]{
-\begin{center}
-  \vspace{0.5cm} %{1.5cm}
-  %\includegraphics{#1}
-  %\includegraphics{#2}
-  \includegraphics[height=125mm,bb=25 169 579
-    609]{#1}
-\includegraphics[height=125mm,bb=25 169 579
-    609]{#2}
-    %\includegraphics[height=100mm]{#1}
-    %\includegraphics[height=100mm]{#2}
-  \nobreak\medskip
-\end{center}}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                mycaption                     %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \mycaption - replacement for \caption
-% necessary, since in multicol-environment \figure and
-% therefore \caption won't work
-
-%\newcounter{figure}
-\setcounter{figure}{1}
-\newcommand{\mycaption}[1]{
-  %\vspace{0.5cm}
-  \begin{quote}
-    {{\sc Figure} \arabic{figure}: #1}
-  \end{quote}
-  \vspace{0.3cm}
-  \stepcounter{figure}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                myTableCaption                %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \myTableCaption - replacement for \caption
-% necessary, since in multicol-environment \figure and
-% therefore \caption won't work
-
-\setcounter{table}{1}
-\newcommand{\myTableCaption}[1]{
-  \vspace{0.5cm}
-  \begin{quote}
-    \begin{center}
-      {{\sc Table} \arabic{table}: #1}
-    \end{center}
-  \end{quote}
-  %\vspace{0.5cm}
-  \stepcounter{table}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Beginning of Document
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{uofsgreen}{rgb}{.125 .5 .25} % Defines the color used for content box headers
 
 \begin{document}
 
-%background color
-%\background{.05 .15 0.3}{.05 .15 0.3}{0.0}
-%\background{0.0 .42 .24} {0.0 .42 .24} {0.0}
-%\background{255 255 255}
-\newrgbcolor{bluegreen}{.1 .4 .45}
-\newrgbcolor{lightblue}{.1 .4 .45}
-\newrgbcolor{white}{1. 1. 1.}
-\newrgbcolor{yellow}{1. 0.9 0.4}
-\newrgbcolor{UofSgreen}{1. 0.9 0.4}
-
-\newrgbcolor{greyBlack}{43 40 40}
-
-\vspace*{2cm}
-
-%Line colour
-%\newrgbcolor{lightblue}{0. 0. 0.}
-%Used for gradient
-%\newrgbcolor{white}{1. 1. 1.}
-%\newrgbcolor{whiteblue}{.80 .80 1.}
-%\newrgbcolor{UofSgreen}{.125 .5 .25}
-
-%Gradient
-%\newrgbcolor{lightUofSgreen}{1. .9 0.4}
-\newrgbcolor{lightUofSgreen}{.356 .647 .0745}
-\newrgbcolor{lightUofSgreen2}{.029 .49 .039}
 \begin{poster}
+{
+headerborder=closed, % Adds a border around the header of content boxes
+colspacing=1em, % Column spacing
+bgColorOne=white, % Background color for the gradient on the left side of the poster
+bgColorTwo=white, % Background color for the gradient on the right side of the poster
+borderColor=uofsgreen, % Border color
+headerColorOne=black, % Background color for the header in the content boxes (left side)
+headerColorTwo=uofsgreen, % Background color for the header in the content boxes (right side)
+headerFontColor=white, % Text color for the header text in the content boxes
+boxColorOne=white, % Background color of the content boxes
+textborder=roundedleft, % Format of the border around content boxes, can be: none, bars, coils, triangles, rectangle, rounded, roundedsmall, roundedright or faded
+eyecatcher=true, % Set to false for ignoring the left logo in the title and move the title left
+headerheight=0.1\textheight, % Height of the header
+headershape=roundedright, % Specify the rounded corner in the content box headers, can be: rectangle, small-rounded, roundedright, roundedleft or rounded
+headerfont=\Large\bf\textsc, % Large, bold and sans serif font in the headers of content boxes
+%textfont={\setlength{\parindent}{1.5em}}, % Uncomment for paragraph indentation
+linewidth=2pt % Width of the border lines around content boxes
+}
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION 
+%----------------------------------------------------------------------------------------
+%
+{\includegraphics[height=4em]{UofS}} % First university/lab logo on the left
+{\bf\textsc{Designing error control circuits for 4-qubit quantum computing}\vspace{0.5em}} % Poster title
+{\textsc{Marina Schmidt and R. Spiteri\hspace{12pt}  Department of Computer Science}} % Author names and institution
+{\includegraphics[height=4em]{NRSL-Mesh2-01.png}} % Second university/lab logo on the right
 
-%%%%%%%%%%%%%%%%%%%%%
-%%% Header
-%%%%%%%%%%%%%%%%%%%%%
-\begin{center}
-\begin{pcolumn}{0.98}
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
 
-%\pbox{0.95\textwidth}{}{linewidth=1mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=lightUofSgreen,gradend=lightUofSgreen2,gradmidpoint=1.0,framesep=1em}{
 
-\pbox{0.98\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
-%%% UofS Logo
-\begin{minipage}[c][9cm][c]{0.15\textwidth}
+\headerbox{Introduction}{name=introduction,column=0,span=1,row=0}{
+  \include{Introduction}
+}
+
+
+\headerbox{Figure 1}{name=figure1,column=2,span=1,row=0}
+{
   \begin{center}
-    \includegraphics[width=15cm,angle=0]{UofS}
-  \end{center}
-\end{minipage}
-%%% Title
-\begin{minipage}[c][10cm][c]{0.7\textwidth}
-\vspace*{1cm}
+        \scalebox{0.35}{
+            \begin{tikzpicture}[
+                    roundnode/.style={circle, draw=green, fill=green, very thick, minimum size=0.5cm},
+                    Largenode/.style={circle, draw=blue!60, fill=blue!5, very thick, minimum size=10cm},
+                    ovalnode/.style={ellipse, fill=black,ultra thick, draw=black, minimum width=10cm,minimum length=5cm}
+                    text/.style={text width=5cm}
+                ]
+                %Nodes
+                \node[Largenode]        (largecircle)   {};
+                \node[roundnode]        (main)                                                  {};
+                \draw[blue] (0,0) ellipse (5 and 1);
+                \draw[blue, dotted] (0,2) ellipse (4.6 and 0.75);
+                \draw[blue, dotted] (0,-2) ellipse (4.6 and 0.75);
+                \draw[->, ultra thick]  (main.north) -- (largecircle.north) node[above,font=\fontsize{50}{50}\selectfont] {$0$};
+                \draw[->, ultra thick]  (main.east) -- (largecircle.east) node[right,font=\fontsize{50}{50}\selectfont]  { $\frac{|0\rangle+|1\rangle}{\sqrt{2}}$};
+                \draw[->, ultra thick]  (main.west) -- (largecircle.west) node[left,font=\fontsize{50}{50}\selectfont] {- $\frac{|0\rangle+|1\rangle}{\sqrt{2}}$};
+                \draw[->, ultra thick]  (main.south) -- (largecircle.south) node[below,font=\fontsize{50}{50}\selectfont] {$1$};
+
+
+
+            \end{tikzpicture}
+          }
+        \end{center}
+}
+
+\headerbox{Toffolli single shot model}{name=details1,column=1,span=1,row=0}{
+  \include{toffoli_model}
+
+}
+
+
+
+%----------------------------------------------------------------------------------------
+%	DETAILS
+%----------------------------------------------------------------------------------------
+\headerbox{Optimization scheme}{name=details2,column=2,span=1,row=0,below=figure1}{
+  \include{Feasibility_algorithm}
+
+}
+
+\headerbox{3-Qubit pulse signal}{name=figure2,column=2,span=1,row=0,below=details2,above=bottom}
+{
   \begin{center}
-    {\sc \textcolor{black}{\Huge The secrets to the success of the Rush--Larsen method and its  generalizations}}\\[15mm]
-    {\Large  Megan E. Marsh, Saeed Torabi Ziaratgahi, and Raymond J. Spiteri\\[7.5mm]
-    Simulation Research Laboratory, Department Computer Science, University of Saskatchewan \\[7.5mm]
-    email: \ttfamily spiteri@cs.usask.ca}
-  \end{center}
-\end{minipage}
-%%% NSERC Logo
-\begin{minipage}[c][9cm][c]{0.15\textwidth}
+\includegraphics[width=7.25cm]{fidelity}
+\end{center}
+}
+
+
+\headerbox{2-Qubit interaction}{name=figure3,column=1,span=1,row=0,below=details2,above=bottom}
+{
+  \vspace{0.37cm}
   \begin{center}
-    \includegraphics[width=15cm,angle=0]{NSERC}
-  \end{center}
-\end{minipage}
-
-}
-\end{pcolumn}
+\includegraphics[width=7.25cm]{2qubit.jpg}
 \end{center}
-
-\vspace*{.5cm}
-
-
-%%%%%%%%%%%%%%%%%%%%%
-%%% Content
-%%%%%%%%%%%%%%%%%%%%%
-\begin{center}
-\begin{pcolumn}{0.24}
-\pbox{0.9\textwidth}{66cm}{linewidth=2mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
-
-%%% Introduction
-\begin{center}\pbox{0.8\textwidth}{}{linewidth=1mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=lightUofSgreen,gradend=lightUofSgreen2,gradmidpoint=1.0,framesep=1em}{\begin{center}\sc \textcolor{white}{\Large{Introduction}}\end{center}}\end{center}
-\vspace{0.5cm}
-
-  One of the most popular methods for solving the ordinary
-  differential equations (ODEs) that describe the dynamic behaviour of
-  myocardial cell models is known as the Rush--Larsen (RL) method. Its
-  popularity stems from its improved stability over integrators such
-  as the forward Euler (FE) method along with its easy
-  implementation. The RL method partitions the ODEs into two sets: one
-  for the gating variables, which are treated by an exponential
-  integrator, and another for the remaining equations, which are
-  treated by the FE method. The success of the RL method can be
-  understood in terms of its relatively good stability when treating
-  the gating variables. However, this feature would not be expected to
-  be of benefit on cell models for which the stiffness is not captured
-  by the gating equations. We demonstrate that this is indeed the case
-  on a number of stiff cell models. We further propose a new
-  partitioned method based on the combination of a first-order
-  generalization of the RL method with the FE method. This new method
-  leads to simulations of stiff cell models that are often one or two
-  orders of magnitude faster than the original RL method.
-
-
-%%% Myocardial cell models
-\begin{center}\pbox{0.8\textwidth}{}{linewidth=1mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=lightUofSgreen,gradend=lightUofSgreen2,gradmidpoint=1.0,framesep=1em}{\begin{center}\sc \textcolor{white}{\Large{Myocardial cell models}}\end{center}}\end{center}
-\vspace{0.5cm}
-
-A wide range of models has been developed to describe the electrical
-currents in various single heart cells, e.g., atrial cells,
-ventricular cells, human cells, rat cells, etc. Most can be formulated
-as an initial-value problem (IVP) for a system of ODEs of the form
-\begin{equation}
-\frac{d{\bf y}}{dt} = {\bf f}(t,{\bf y}), \qquad
- {\bf y}(t_0)=\bf{y_0}.
-  \label{eq:IVP}
-\end{equation}
-
-The component variables of the vector ${\bf y}$ are dependent on the
-cell model but they typically include the transmembrane potential, a
-number of gating variables, and a set of ionic concentrations and
-can be written as
-\begin{subequations}
-\label{eq:cellmodel}
-\begin{align}
-\label{eq:dVmdt}
-\frac{dV_m}{dt}&=-\frac{1}{C_m} \sum\limits_{i=1}^{n_{ion}}
-I_i(V_m,{\bf m},{\bf c},t),\\
-\label{eq:dcjdt}
-\frac{dc_j}{dt}&=g_j(c_j,{\bf m},V_m,t), &j&=1,2,...,n_c,\\
-\label{eq:dmkdt}
-\frac{dm_k}{dt}&= \alpha_k (1 -m_k)-\beta_k m_k, &k&=1,2,...,n_m.
-\end{align}
-\end{subequations}
-
-Equation (\ref{eq:dVmdt}) describes the evolution of the transmembrane
-potential $V_m$, equation (\ref{eq:dcjdt}) describes
-the dynamic variations in intracellular ionic
-concentrations, and equation (\ref{eq:dmkdt}) describes the opening and
-closing of ion channels in the cell membrane. 
-
-An important consideration in the efficient numerical solution of
-differential equations is the concept of {\em stiffness}. In this study, 
-an IVP (\ref{eq:IVP}) is considered to be stiff on a time interval with 
-respect to a given numerical method and error tolerance when stability 
-requirements force the numerical method to take smaller step sizes than 
-those dictated by accuracy requirements.  In this study we consider the 
-numerical solution of 37 different myocardial cell models. 
-The cell models considered in this study range from non-stiff to
-moderately stiff to stiff for typical accuracy requirements.
-
-Related to the stiffness of an IVP (\ref{eq:IVP}) are the
-eigenvalues of the Jacobian matrix, $\bf{J}=\frac{\partial {\bf
- f}}{\partial y} (\it{t},{\bf y})$, evaluated over time. The
-magnitude and nature of these eigenvalues can provide information as to the degree
-of stiffness present in an IVP at a given time. A stiff IVP typically
-has eigenvalues $\lambda$ with large negative real parts on some time
-interval. Such eigenvalues force the time step $\Delta t$ to be small
-so that $\lambda\Delta t$ is within the stability region of the
-numerical method. 
-
-
-
-}
-\end{pcolumn}
-																%%%%%%%%%%%%%%
-																% 2nd column %
-																%%%%%%%%%%%%%%
-\begin{pcolumn}{0.24}
-\pbox{0.9\textwidth}{66cm}{linewidth=2mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
-\vspace{0.2cm}
-
-
-%%% Basic Numerical Methods
-\begin{center}\pbox{0.8\textwidth}{}{linewidth=1mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=lightUofSgreen,gradend=lightUofSgreen2,gradmidpoint=1.0,framesep=1em}{\begin{center}\sc \textcolor{white}{\Large{Basic Numerical Methods}}\end{center}}\end{center}
-\vspace{0.4cm}
-
-
-Given the IVP
-\begin{equation}
-\frac{d{\bf y}}{dt} = {\bf f}({\it t},{\bf y}), \qquad
- {\bf y}({\it {t_n}})={\bf {y_n}},
-  \label{eq:cellmodelIVP}
-\end{equation}
-for $t_n<t<t_{n+1}$, where ${\bf y} \in \mathbb{R}^M$, ${\bf f} :
-\mathbb{R} \times \mathbb{R}^M \rightarrow \mathbb{R}^M$, and $\Delta t_n =
-t_{n+1} - t_n $, the FE method approximates (\ref{eq:cellmodelIVP}) by
-\begin{equation}
-\label{eq:FEformula}
-{\bf y}_{n+1}={\bf y}_n + {\it {\Delta t_n}} \hspace{1mm} {\bf f}(t_n,{\bf y}_n).
-\end{equation}
-
-The RL method applies the FE method to the ODEs for non-gating
-variables present in (\ref{eq:cellmodelIVP}) but uses a different
-technique for the ODEs satisfied by gating variables. These ODEs have
-the form (\ref{eq:dmkdt}) that, for a typical gating variable $y$, can
-be reformulated as
-\begin{equation}  
-\frac{dy}{dt} = \frac{y_{\infty} - y}{\tau_y},
-\label{eq:gatingODEs}
-\end{equation}
-where 
-\begin{equation*}
-y_{\infty} = \frac{\alpha_y}{\alpha_y + \beta_y}, \hspace{10mm}\tau_y = \frac{1}{\alpha_y + \beta_y}.
-\end{equation*}
-The RL method assumes the transmembrane potential $V_m$ is constant
-over each step, allowing (\ref{eq:gatingODEs}) to be treated as a
-linear ODE with an exact solution given by
-\begin{equation}
-y_n = y_{\infty} + (y_{n-1}
--y_{\infty}) e^{-\frac{\Delta t_n}{\tau_y}}.
-\label{eq:RLformula}
-\end{equation}
-
-The GRL1 method decouples and linearizes the ODE system around a point
-${\bf y}={\bf y}_n$ at time $t=t_n$ to obtain
-\begin{equation}
-   \frac{{d} y_{i}}{{d} t} = f_{i}({\bf y}_n) + \frac{\partial}{\partial y_{i}} f_{i} ({\bf y}_n)\left( y_{i} - y_{n,i} \right), \quad y_{i} (t_{n}) = y_{n,i},
-\label{eq:decoupledODEs} 
-\end{equation}
-for $i=1, 2, \hdots, M$, where the subscript $i$ denotes component $i$ 
-of a vector. The numerical solution ${\bf y}_{n+1}$ at time $t=t_{n+1}$ is obtained by
-\begin{equation}
-y_{n+1,i} = y_{n,i} + \frac{a}{b} \left( e^{ b ( \Delta t_{n})} - 1 \right), \quad  i=1, 2, \hdots, M.
-\label{eq:GRL1mainformula}
-\end{equation}
-
-The RL and GRL1 methods treat the gating equations
-(\ref{eq:dmkdt}) similarly. In other words, if $y_i$ is a
-gating variable then (\ref{eq:GRL1mainformula}) reduces to
-(\ref{eq:RLformula}). The key difference between the methods is in
-their treatment of the non-gating variables: GRL1 applies an exponential
-integrator based on local linearization to non-gating variables whereas
-RL uses the FE method. A summary of the three basic numerical methods used for this study is
-presented in the following table:
-
-\vspace{0.5 cm} 
-\begin{tabular}{|l|c|c|}\hline 
-  \multirow{2}{*}{\bf{Method}} & \bf{Gating variables} & \bf{Non-gating variables}\\
-  & \bf{(gating equations)} & \bf{(non-linear equations)}\\
-  \hline
-  \multirow{2}{*}{\bf{FE}} & \multirow{2}{*}{FE integrator (\ref{eq:FEformula})}
-  & \multirow{2}{*}{FE integrator (\ref{eq:FEformula})}\\
-  & &\\
-  \hline
-  \multirow{2}{*}{\bf{RL}} & \multirow{2}{*}{Exponential integrator (\ref{eq:GRL1mainformula})} &
-  \multirow{2}{*}{FE integrator (\ref{eq:FEformula})}\\
-  & &\\
-  \hline
-  \multirow{2}{*}{\bf{GRL1}} & \multirow{2}{*}{Exponential integrator (\ref{eq:GRL1mainformula})} & Local
-  linearization (\ref{eq:decoupledODEs}) +\\
-  &  & Exponential integrator (\ref{eq:GRL1mainformula})\\
-  \hline
-  \noalign{\smallskip}
-\end{tabular}
-\vspace{0.5 cm}
-\\We note that the method
-that is the least stable but computationally cheapest per step is the
-FE method and the method that is the most stable but computationally
-costliest per step is the GRL1 method. This tradeoff of stability for
-computational cost per step is typical for numerical methods to solve
-stiff IVPs. It is often the case that the increase in stable step size
-more than offsets increase in computational cost per step, leading to
-a less expensive computation (i.e., more efficient method) overall.
-
-}
-																%%%%%%%%%%%%%%
-																% 3rd column %
-																%%%%%%%%%%%%%%
-\end{pcolumn}
-\begin{pcolumn}{0.24}
-\pbox{0.9\textwidth}{66cm}{linewidth=2mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
-
-%%% Partitioned Method
-\begin{center}\pbox{0.8\textwidth}{}{linewidth=1mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=lightUofSgreen,gradend=lightUofSgreen2,gradmidpoint=1.0,framesep=1em}{\begin{center}\sc \textcolor{white}{\Large{Partitioned Method}}\end{center}}\end{center}
-\vspace{0.4cm}
-By analyzing the eigenvalues of the Jacobian matrix of cell models, 
-it can be determined that the five stiffest cell models out of 37 
-are Bondarenko et al. (2004), Jafri et al. (1998), Pandit et al. 
-(2003), the Endocardial variant of Ten Tusscher et al. (2004),
-and Winslow31. Eigenvalue analysis also determines that 
-only a few of the ODEs are
-responsible for the stiffness of the model. This provides a means by
-which the system of ODEs can be partitioned into stiff and non-stiff
-subsystems. In addition, this eigenvalue analysis reveals on which
-sub-interval(s) of the entire interval of integration the IVP is
-stiff. This permits a partitioning of the interval of integration into
-stiff and non-stiff subintervals.
-
-As example, we consider the stiff cell model of Pandit et
-al. (2003). The plot of the real parts of the
-eigenvalues of the Jacobian matrix of this model is given in the following picture:
-\begin{center}
-	\myfig{Pandit2003(zoom)}{1}
-	\mycaption{Real parts of eigenvalues of Jacobian over time for the
-    model of Pandit et al. (2003)}
-\end{center}
-
-The plot shows the ODEs that capture the
-stiffness of the system are not stiff on the entire interval of
-integration. From close examination of the eigenvalues, we find that
-only two ($P_{C1}$ and $P_{O1}$) out of 26 ODEs from the model of Pandit et al. (2003)
-are responsible for the stiffness of the models. We also identify
-that the stiffness is approximately contained within the subintervals 
-$[105,195]$.	
-
-An important point to note is that the majority of stiff variables are not gating
-variables. This means that most of the stiffness of stiff cell models is
-not captured by gating variables. In the case of stiff
-models for which the stiffness is not captured by gating variables, we
-expect the RL method to perform less well because its step size can be
-adversely impacted by stability restrictions imposed by the FE method
-being applied to stiff non-gating equations. For such models, we
-expect a method such as GRL1 that treats stiff non-gating equations
-with an exponential integration method to outperform the RL
-method. 
-
-Furthermore we expect a combination of the GRL1 method and the
-FE method that takes advantage of partitioning the ODE system and time
-interval into stiff and non-stiff subsets to perform even more
-effectively. Specifically we propose to use the FE method for the
-entire ODE system on the non-stiff portion of the time domain and the
-GRL1 method for the stiff variables combined with the FE method for
-the non-stiff variables on the stiff subinterval of integration. We
-refer to this new partitioned method as GRL1/FE$|$FE.
-
-
-
-																%%%%%%%%%%%%%%
-																% 4th column %
-																%%%%%%%%%%%%%%
-
-}
-\end{pcolumn}
-\begin{pcolumn}{0.24}
-\pbox{0.9\textwidth}{66cm}{linewidth=2mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
-
-%%% Numerical Experiments
-\begin{center}\pbox{0.8\textwidth}{}{linewidth=1mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=lightUofSgreen,gradend=lightUofSgreen2,gradmidpoint=1.0,framesep=1em}{\begin{center}\sc \textcolor{white}{\Large{Numerical Experiments}}\end{center}}\end{center}
-\vspace{0.4cm}
-
-To determine the efficiency of different numerical methods, we 
-computed reference solutions with seven to ten matching digits
-for the 37 cell models. Then we determined the maximum constant 
-step sizes that satisfied a specific error tolerance for each of the 
-models with respect to the reference solutions. We found that the FE
-method wins on 9 models, the RL method wins on 24 models, and the
-GRL1 method wins on 4 models:
-
-\vspace{0.5 cm}
-\begin{tabular}{|l| c | c | c |}
-  \hline
-   \bf{Basic Method}  & \bf{FE}  & \bf{RL} & \bf{GRL1} \\
-\hline
- \bf{Winner on number of cell models} &  9 &  24  & 4 \\ 
-\hline
-\end{tabular}
-\vspace{0.5 cm}
-\\This confirms that
-the popularity of the RL method in practice is well justified. The
-secrets to its success lie mainly in its partitioning of the ODE
-system into gating and non-gating variables and solving the equations
-for the gating variables with an exponential integrator. The RL method
-has the best combination of stability and computational expense per
-step for moderately stiff models. Because the majority of the 37 cell
-models are moderately stiff, the RL method is the best single method
-for most models.
-
-The performance of the partitioned method GRL1/FE$|$FE was determined
-for five of the stiffest cell models. The execution time in seconds
-of the basic methods (FE, RL, GRL1) and the partitioned method
-GRL1/FE$|$FE is given in the following table:
-
-\vspace{0.5 cm}
-\begin{tabular}{|l| c | c | c | c |}
-  \hline
-   \bf{Model}  & \bf{FE}  & \bf{RL} & \bf{GRL1}  & \bf{GRL1/FE$|$FE} \\
-\hline
- \bf{Bondarenko} &  2.23E+0 &  2.28E+0  & 8.41E--1   & \bf{9.59E--2}\\ 
-\hline
- \bf{Jafri}  &  3.65E+0  & 3.59E+0 & 1.71E+1  & \bf{6.84E--1}  \\     
-\hline
- \bf{Pandit}  &  5.55E+1 & 5.68E+1 &  9.67E--1  & \bf{2.10E--1}  \\ 
-\hline
- \bf{Ten Tusscher Epi} &   1.29E+0 &  3.10E--2 & 1.67E--1   & \bf{2.55E--2}  \\  
-\hline
- \bf{Winslow31} &  1.41E+1  &  1.49E+1 &  2.15E+2   & \bf{4.85E+0}  \\ 
-\hline
-\end{tabular}
-\vspace{0.5 cm}
-\\We see that GRL1/FE$|$FE is the most efficient method for all five of 
-the stiff models considered. For the two stiffest models, namely that 
-of Pandit et al. (2003) and Winslow31, GRL1/FE$|$FE is almost $5$ 
-and $3$ times faster, respectively, than its next closest competitor.
-GRL1/FE$|$FE is about $270$ and $3$ times faster than RL in these cases.
-For the slightly less stiff models of Bondarenko et al. (2004) and
-Jafri et al. (1998), GRL1/FE$|$FE is about $9$ and $5$
-times faster than its next closest competitor, respectively. Finally 
-for the Endocardial variant of the model of Ten Tusscher et al. (2006)
-GRL1/FE$|$FE is $12$\% faster than its next closest competitor, RL. 
-
-%These improvements can generally be understood as follows. In the
-%stiff regions, the GRL1/FE$|$FE method can generally take larger step
-%sizes than the RL method applied to the entire region because the
-%partitioning of the ODEs better captures the stiffness for treatment
-%by the exponential integrator than partitioning along the lines of
-%gating vs.~non-gating variables.  Moreover because the use of GRL1 is
-%limited to the relatively small number of stiff ODEs, it is also
-%computationally cheaper per step than RL. In the non-stiff regions,
-%GRL1/FE$|$FE reduces to FE, which is the cheapest method per step out
-%of those considered. The GRL1/FE$|$FE method can also generally take
-%larger steps on these regions than the corresponding steps for FE
-%applied to the entire region because it is not impacted by
-%restrictions from the stiff regions.
-
-
-
-%%% Conclusion
-\begin{center}\pbox{0.8\textwidth}{}{linewidth=1mm,framearc=0.1,linecolor=black,fillstyle=gradient,gradangle=0,gradbegin=lightUofSgreen,gradend=lightUofSgreen2,gradmidpoint=1.0,framesep=1em}{\begin{center}\sc \textcolor{white}{\Large{Conclusion}}\end{center}}\end{center}
-\vspace{0.4cm}
-
-Because of its overall efficiency and relative ease of implementation,
-the Rush--Larsen method is a popular and effective method for solving
-the ODEs that describe the evolution of dynamic myocardial cell
-models. The Rush--Larsen method partitions the ODE system into gating
-and non-gating variables and solves the equations for the gating
-variables with an exponential integrator and the equations for the
-non-gating variables with the forward Euler method. However, this
-approach cannot be expected to work well on cell models for which the
-stiffness is not captured by the gating variables. In this study we
-demonstrate that in fact the stiffness in the stiffest cell models is
-caused by non-gating variables, thus leading to underperformance of
-the Rush--Larsen method. We demonstrate that a generalized
-Rush--Larsen method of first order performs well on the stiffest cell
-models. Using an eigenvalue analysis, we are able to partition the
-ODEs and the interval of integration into stiff and non-stiff subsets
-and hence propose a partitioned method based on the generalized
-Rush--Larsen and forward Euler methods that outperforms all other
-basic methods considered on the stiffest cell models.
-
-{\footnotesize
-\bibliographystyle{plain}
-%\bibliography{explicitMethods}
 }
 
+%----------------------------------------------------------------------------------------
+%	RESULTS AND CONCLUSIONS
+%----------------------------------------------------------------------------------------
+
+\headerbox{Results \& Conclusions}{name=resultsandconclusions,column=3}{ % This block's bottom aligns with the bottom of the details block, add bottomaligned=details in need
+	
+  \include{results}
+  \include{conclusion}
 }
-\end{pcolumn}
-\end{center}
 
-\vspace*{2cm}
+%----------------------------------------------------------------------------------------
+%	REFERENCES
+%----------------------------------------------------------------------------------------
+%
+%\headerbox{References}{name=references,column=0,span=3,row=1,align=contact,below=introduction}{
+%
+%\renewcommand{\section}[2]{\vskip 0.05em} % Get rid of the default "References" section title
+%\nocite{*} % Insert publications even if they are not cited in the poster
+%\small{ % Reduce the font size in this block
+%\bibliographystyle{unsrt}
+%\bibliography{sample} % Use sample.bib as the bibliography file
+%}}
+%
+%----------------------------------------------------------------------------------------
+%	FUTURE RESEARCH
+%----------------------------------------------------------------------------------------
 
-%%% Second Row %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% END Second Row %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	CONTACT INFORMATION
+%----------------------------------------------------------------------------------------
+
+
+
+\headerbox{Future Research}{name=future,column=3,span=1,below=resultsandconclusions}{ % This block is as tall as the references block
+
+  \include{futurework}
+
+}
+
+
+\headerbox{Contact Information}{name=contact,column=0,below=introduction,above=bottom}{ % This block is as tall as the references block
+
+\begin{description}\compresslist
+\item[Web] simlab.usask.ca
+\item[Email] mts299@mail.usask.ca
+\item[Phone] +1 (306) 716-3561
+\end{description}
+}
+
+
+%----------------------------------------------------------------------------------------
 
 \end{poster}
 
 \end{document}
-

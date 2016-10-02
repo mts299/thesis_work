@@ -1,0 +1,20 @@
+The CCZ gate is component of the toffoli single shot circuit that deals with error correction. The gate can be repersented as a controlled Hamiltonian matrix as a vector operator: $\mathbf{\hat{H}^c}$, that is influenced by the controlled parameters $\varepsilon (t)$. These parameters determine the phase of the frequency to correct the qubit system with. The drift Hamiltonian, $\hat{H}^{dr}$ then reperesent the non-controlled qubit system. Therefore, the overall Hamiltonian of the qubit system
+is reperesented as: 
+\begin{equation*}
+\hat{H} \big( \varepsilon (t) \big) = \hat{H}^{dr} + \varepsilon (t) \cdot  \mathbf{\hat{H}^c}
+\end{equation*}
+
+The system can further be expressed over time by unitary evolution operator:
+\vspace{0.15cm}
+\begin{align*}
+  \tilde{U}(\varepsilon(t);\tau) = T e^{\Big( -i \int_{0}^{\tau} \hat{H}(\varepsilon(t))dt \Big) } 
+\end{align*}
+To determine how well the system is corrected, the target unitary evolution operator, $U$, is chosen based on the gate design. The fidelity of the simulation is then defined as:
+\begin{center}
+\begin{align*}
+  \mathscr{F} (\varepsilon(t)) = \frac{1}{N} Re \Big(Tr \big(U\tilde{U}(\varepsilon(t))\big) \Big)
+\end{align*}
+\end{center}
+Representing the objective function that optimizes for the maximum intrinsic fidelity that exceeds $99.99\%$. 
+
+

@@ -1,0 +1,10 @@
+ Quantum computers hold a promising advantage to solving hard problems, such as prime factorization, within a sufficient amount of time. This is because of their ability to harness the quantum states of subatomic particles (e.g. photons and electrons) to represent a quantum bit (qubit). A qubit can be in a zero or one or both states when not being measured because of quantum superposition. Because of this quantum property, when a qubit is added to the system it can interact with the other qubits
+ to create superposition states that will increase the amount of information provided to the system. The ability to interact with other qubits is also problematic because it can interact with other environmental subatomic particles from which it is impossible to isolate a qubit system. When this undesired interaction occurs, decoherence or loss of information causes errors in the information read from the system. To prevent the major loss of information from decoherence, error correction operations are applied to obtain the resulting information from the system. Some
+constraints of the error correction design are:
+\begin{itemize}
+  \item Gate time must not exceed decoherence time
+  \item Intrinsic fidelty exceeds $99.99\%$
+  \item Cannot use reduncy because of the no-cloning theorem
+  \end{itemize}
+
+In this poster the Tofolli single shot gate constants is optimized to obtain an intrinsic fidelity of $99.99\%$. It promises enough robustness in the error correction gate to guarantee fault tolerance without losing too much gate time so as to stay lower than the decoherence time. 
