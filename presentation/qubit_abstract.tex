@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{sectsty}
+\usepackage{lipsum}
+\usepackage[utf8]{inputenc}
+\usepackage{authblk}
+
+\usepackage[draft]{todonotes}
+\newcommand{\comment}[1]
+{\par {\bfseries \color{blue} #1 \par}}
+\title{Optimizing High-Fidelity Quantum Control}
+\author[1]{Marina Schmidt}
+\author[1]{Dr. R. Spiteri}
+\affil[1]{Department of Computer Science, University of Saskatchewan}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Quantum computers are a rising technology that promises a higher performance rate over the classical computer. One area that improves the reliability of performance is the quantum computer control circuit that involves the error correction component. This component ensures that the quantum bits in a coupled system will return to the correct states to ensure reliability in the data\todo{Suggestions on a better word than data, solution maybe?}. Because the number of states determines the number
+  possible states the quantum bit can be in and needs to be correct to, a high enough fidelity needs to be achieved to ensure reliability in the circuit. We looked at the fourth quantum state system to solve for the lowest possible process time, the time it takes to correct the quantum bit system, that obtained a high-fidelity of $0.9999$\todo{percentage or decimal?}. Because the optimization of quantum system needs to just get higher than a fidelity of 0.9999\todo{decimal for percentage form?},
+  based on experimental design of the two quantum bit system, making it a feasibility optimization. By restructuring the quantum state problem, we solve for a non-linear constraint of $0.9999-f(x)\leq$ such that we find the maximum fidelity, $f(x)=1.0$, for the objective function. The software chosen to solve the problem is global search using fmincon, as the local solver, from the Global Optimization Toolbox in MATLAB\todo{following MATLABs style guide}. The current best results found from this method is a fidelity of 0.999977 at the time set of 120 nano seconds. This telling us that we can obtain a High-fidelity of four quantum system that takes 120 nano seconds to reach a reliable correct bit code\todo{again a better word?}.        
+\end{abstract}
+
+\end{document}

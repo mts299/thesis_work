@@ -1,0 +1,84 @@
+\documentclass[12pt,proposal]{uofsthesis-cs}
+
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+\usepackage{amsbsy}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{setspace}
+
+\usepackage[
+pdfpagemode={UseOutlines},
+bookmarksnumbered,bookmarksopen,
+pdfstartview={FitH},
+colorlinks=true,
+linktocpage=true,
+]{hyperref}
+
+\usepackage{float}
+\newfloat{algorithm}{t}{lop}
+
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arctanh}{arctanh}
+
+\newcommand{\pythode}{\texttt{pythODE}}
+\newcommand{\rodas}{RODAS}
+\newcommand{\radau}{RADAU5}
+\newcommand{\order}[1]{\mathcal O \big( #1 \big)}
+\newcommand{\by}{\mathbf y}
+\newcommand{\byt}{\mathbf{\tilde y}}
+\newcommand{\bphi}{\boldsymbol \Phi}
+\newcommand{\bpsi}{\boldsymbol \Psi}
+\newcommand{\deriv}[2]{\frac{\textrm{d} #1}{\textrm{d} #2}}
+\newcommand{\derivn}[3]{\frac{\textrm{d}^{#3} #1}{\textrm{d} #2^{#3}}}
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pderivn}[3]{\frac{\partial^{#3} #1}{\partial #2^{#3}}}
+\newcommand{\mpd}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+\newcommand{\Dt}{\Delta t}
+
+%may need to come up with a better title, filler for now
+\title{A Software Approach to Global Optimization}
+\author{Marina Schmidt}
+\degree{\MSc}         
+
+\convocationdate{June/2017}
+
+\input{chapters/abstract.tex}
+
+\acknowledgements{
+  Thank you Ray. A more meaningful acknowledgements will come later. 
+}
+
+\dedication{To my parents and to Andrew Wagemakers}
+
+\loa{
+\abbrev{CCCZ}{Controlled controlled controlled Z gate}
+\abbrev{qubit}{Quantum bit}
+}
+
+\begin{document}
+
+\maketitle
+\frontmatter
+
+\input{chapters/abstract.tex}
+\input{chapters/introduction.tex}
+\input{chapters/background.tex}
+\input{chapters/global_search.tex}
+\input{chapters/results.tex}
+\input{chapters/conclusion.tex}
+
+\uofsbibliography[]{mscthesis}
+
+\uofsappendix
+
+%\input{appendices/time_hopping.tex}
+%\input{appendices/VASP.tex}
+%\input{appendices/concrete.tex}
+
+\end{document}
+
