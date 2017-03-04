@@ -18,6 +18,14 @@ colorlinks=true,
 linktocpage=true,
 ]{hyperref}
 
+%% editing shortcuts
+\usepackage{soul}
+\newcommand{\comment}[1]{{\bf\color{red}\#\# #1 \#\#}}
+\newcommand{\kg}[1]{{\bf\color{red} #1}}
+\usepackage{todonotes}
+\newcommand{\TODO}[2][]{\todo[inline, #1]{#2}}
+
+
 \usepackage{float}
 \newfloat{algorithm}{t}{lop}
 
@@ -41,7 +49,7 @@ linktocpage=true,
 \newcommand{\Dt}{\Delta t}
 
 %may need to come up with a better title, filler for now
-\title{Global Optimization: Software, Applications}
+\title{A Software Approach to Global Optimization}
 \author{Marina Schmidt}
 \degree{\MSc}         
 
@@ -50,10 +58,10 @@ linktocpage=true,
 \input{chapters/abstract.tex}
 
 \acknowledgements{
-  Thank you Ray. A more meaningful acknowledgement will come later. 
+  Thank you Ray. A more meaningful acknowledgements will come later. 
 }
 
-\dedication{To my parents}
+\dedication{To my parents and to Andrew Wagemakers}
 
 \loa{
 \abbrev{CCCZ}{Controlled controlled controlled Z gate}
@@ -69,11 +77,7 @@ linktocpage=true,
 \input{chapters/chapter_1_Intro/introduction.tex}
 \input{chapters/chapter_2_Background/global_search.tex}
 \input{chapters/chapter_3_Software/ch3.1_compute_farm.tex}
-\input{chapters/chapter_3_Software/ch3.2_database.tex}
-\input{chapters/chapter_41_Qubit/intro.tex}
-\input{chapters/chapter_41_Qubit/model.tex}
-\input{chapters/chapter_41_Qubit/results.tex}
-\input{chapters/chapter_42_RationalDesign/rational_design.tex}
+\input{chapters/chapter_4_applications/applications.tex}
 \input{chapters/chapter_5_Conclusion/conclusion.tex}
 
 \uofsbibliography[abbrv]{mscthesis}
