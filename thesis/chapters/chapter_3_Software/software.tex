@@ -1,0 +1,24 @@
+\chapter{Software}
+\section{Computefarm}
+
+\subsection{Inspiration}
+Computefarm is inspired in the case of avoiding resource contention while keeping the global optimization process parallel.  
+
+\subsection{Requirements}
+Computefarm is a distributed system to send out tasks to multiple client computers. In the case of global optimization a server distributes function evaluations to client computers. To keep overhead of using Computefarm to a minimal only three requirements are needed to run Computefarm, they are
+\begin{itemize}
+    \item port number for socket connection (User provided),
+    \item the runnable objective function script name (User provided), and
+    \item list of population points to evaluate the objective function at on client machines (global optimization algorithm provided).
+\end{itemize}
+
+The first two points are passed into the solver and further passed to Computefarm for the initialization phase. The last point is passed in by the algorithm due to the metric it uses to determine which points in the domain of the objective function should be evaluated at each iteration step. 
+ 
+\subsection{Structure}
+\subsection{Implementation}
+
+\section{Optimization Database}
+\subsection{Requirements}
+\subsection{Inspiration}
+\subsection{Schema}
+\subsection{Implementation}
