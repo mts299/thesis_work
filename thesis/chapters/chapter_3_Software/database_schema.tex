@@ -1,0 +1,14 @@
+\documentclass{article}
+\usepackage{array,ragged2e,pst-node,pst-dbicons}
+\newcolumntype{C}[1]{>{\Centering}p{#1}}
+\def\Tab#1{\tabular{C{5cm}}\rule[-5mm]{0pt}{1cm}#1\\\hline
+                           ~\\\hline~\endtabular}
+\seticonparams{entity}{shadow,fillcolor=black!20,fillstyle=solid,framesep=0pt}
+\begin{document}
+
+\entity{students}[\Tab{Students}]\hspace{2.5cm}
+\entity{courses}[\Tab{Courses}]
+\ncline[arrowscale=2]{->}{students}{courses}
+\naput[npos=0.1]{1}\naput{take}\naput[npos=0.85]{1..*}
+
+\end{document}

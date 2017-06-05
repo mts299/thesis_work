@@ -16,26 +16,23 @@ Computefarm is a distributed system to send out tasks to multiple client compute
     \item the runnable objective function script name (User provided), and
     \item list of population points to evaluate the objective function at on client machines (global optimization algorithm provided).
 \end{itemize}
-
-The first two points are passed into the solver and further passed to Computefarm for the initialization phase. The last point is passed in by the algorithm due to the metric it uses to determine which points in the domain of the objective function should be evaluated at each iteration step. 
- 
+The first two points are passed into the solver and further passed to Computefarm for the initialization phase. The last point is passed in by the algorithm due to the metric it uses to determine which points in the domain of the objective function should be evaluated at each iteration step.  
 \subsection{Structure}
  The implementation of computefarm is based on the client-server model, such that the software farms unused or accessible client machines to wait upon tasks directed by the server machine. For global optimization this means the server delegates points in the search space to the client computers to evaluate a black box function. The clients then return the result to the server machine and wait on further positions to evaluate. The server then a provides a list of
   results to the
   global optimization solver from each evaluated point. 
   In the case of a failure the server will receive a disconnect from the client machine then places the position back into the queue of positions needing to be evaluated. The server will later then provide the position to a client that is waiting on a new point to evaluate. This ensures fault tolerance in the computefarm software such that the global optimization solver does not need to restart if a client computer fails.  
   An extra step is taken in Computefarm where client machines are reawakened to ensure the maximum number of client machines are available to be utilized by the server. 
-
-    Figure \ref{fig:computefarm} shows the flow of a global optimization algorithm using Computefarm. 
-
-\begin{figure}[!h]
+  Figure \ref{fig:computefarm} shows the flow of a global optimization algorithm using Computefarm. 
+\clearpage
+\begin{figure}[h!]
     \centering
-    \includestandalone[width=5cm]{chapters/chapter_3_Software/flowchart}
+    \includegraphics[width=10cm,height=15cm]{chapters/chapter_3_Software/flowchart.pdf}
     \caption{Process of a global optimization algorithm using Computefarm}
     \label{fig:computefarm}
 \end{figure}
-
 Computefarm will take a list of population points and distributed them out to various client computers that will then return a result list to global optimization algorithm to further proceed in the optimization process. In this thesis Computefarm is applied to PSO to solve the applications in Chapter \ref{applications}, by taking Alg. \ref{algorithmPSO} an altered algorithm is implementd to use Computefarm Alg. \ref{CFPSO}.
+
 \begin{algorithm}[H]
   \begin{algorithmic}[2]
 
@@ -66,13 +63,13 @@ Computefarm will take a list of population points and distributed them out to va
  
 This algorithm is applied in the PSO variants in the software \textit{pythOPT}, a problem solving environment, creating a distributed PSO version called Computefarm Particle Swarm Optimization (CFPSO).
 
-To further understand the implementation steps taken in Computefarm, Figure \ref{fig:cf implemetation} shows the overall design of the distributed system. 
+To further understand the implementation steps taken in Computefarm, Figure \ref{fig:implementation} shows the overall design of the distributed system. 
 
-\begin{figure}[!h]
+\begin{figure}[h!]
     \centering
-    \includestandalone[width=5cm]{chapters/chapter_3_Software/flowchart2}
+    \includegraphics[width=10cm,height=10cm]{chapters/chapter_3_Software/flowchart2.pdf}
     \caption{Process of a global optimization algorithm using Computefarm}
-    \label{fig:computefarm}
+    \label{fig:implementation}
 \end{figure}
 
 During the setup phase of Computefarm, three POSSIX \textit{threads} are used to run the functions
@@ -99,11 +96,11 @@ While monitoring the particle list, if any particle is not assigned to a connect
 of the program is written in programming language C, the particle position array length is also stored and sent to the client computer. The connection handler will then wait to receive a message from the client. This message will contain the resulting function evaluation. The connection handler will then store the function value for the specific particle and change the finished flag from zero to one. In the case of disconnect of the client, the connection handler will de-assign itself from
 the particle by changing the assigned flag back to zero, changed the client assigned flag back to zero and exit. The work flow of the connection handler is described in the following Figure \ref{fig:connection handler}.
 
-\begin{figure}[!h]
+\begin{figure}[h!]
     \centering
-    \includestandalone[width=5cm]{chapters/chapter_3_Software/connection_handler}
+    \includegraphics[width=8cm,height=10cm]{chapters/chapter_3_Software/connection_handler.pdf}
     \caption{Computefarm connection handler work flow}
-    \label{fig:computefarm}
+    \label{fig:connection handler}
 \end{figure}
 
 The Monitor connection function awakens client machines to run the client script to connect to the server and monitor any machines that disconnect. When machines disconnect a separate thread function, reawaken clients, will attempt to awaken any known disconnected machines every $N$ minutes (default ten minutes). This ensure the maximum number of client machines connected to the server every $N$ minutes from start up. Disconnected machines are determined by assigned flag in client
@@ -153,9 +150,43 @@ The Optimization Database is used to store information for optimization problems
 
 \subsection{Schema}
 
-The Optimization database is implemented for users that have no prior knowledge of databases. Two tables are set up for the user settings and the provided problem name. The settings table will store the following information about the global optimization problem
+The Optimization Database is implemented for users with no prior knowledge of databases. On use of the software it will create a local PostgreSQL database if the user does not have a local or remote database setup. It will then automatically setup two tables, settings and problem table. The settings table stores information about the settings used for the global optimization with the default columns
 \begin{itemize}
-    \item  
-    \item
-    \item 
+    \item global optimization method,
+    \item lower bound,
+    \item upper bound,
+    \item seed, and
+    \item note on simulation. 
 \end{itemize}
+Columns that are included and maintained by the database is
+\begin{itemize}
+    \item primary key id,
+    \item status, and 
+    \item check in time. 
+\end{itemize}
+The primary key is used to associate any instance of the problem that will be storing its data in the problem table. The status column is updated by the software to keep status if a simulation is still running. Whenever the database is updated or inserted into, the check in time will be automatically updated to the current time. This check in time can later be used to determine if the simulation has been running for the past $N$ hours. In combination with a automatic email component to the
+software the user can be notified on result and the status of the optimization daily. 
+
+The problem table is the record of data on the objective function that by default stores
+\begin{itemize}
+    \item Foreign key id,
+    \item $x$ position,
+    \item $f$ (function evaluation result),
+    \item evaluation number, and
+    \item insertion time.
+\end{itemize}
+The user can also chose to have extra columns to store other data about the objective function. As mentioned before this can be used for quicker sorting methods between instances or properties of the simulation. 
+
+Figure \ref{fig:database schema} represents the database schema used by the software where one settings table has multiple instances of problem tables. 
+
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=5cm]{chapters/chapter_3_Software/database_schema.pdf}
+    \caption{Optimization Database schema.}
+    \label{fig:database schema}
+\end{figure}
+
+
+
+
