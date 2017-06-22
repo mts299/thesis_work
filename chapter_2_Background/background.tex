@@ -1,0 +1,260 @@
+\chapter{Global Optimization}
+\label{background}
+Global optimization is a widely-used method in engineering, chemistry, and economics, among other fields, to obtain the extreme minimum (or maximum) value of a function. We can represent real-world problems in the following form:
+\begin{align}
+  \label{eq:GO}
+  x^* = \arg \min_{x \epsilon D} f(x) \nonumber \\
+  f:D\rightarrow \mathbb{R} \\ 
+  D = {x,x\epsilon \mathbb{R}^{N},l_n\leq x_n \leq u_n, n = 1,\ldots,N} \nonumber
+\end{align}
+
+where $f(x)$ is the objective function, x is a $N$-dimensional vector between the lower bound $l_n$ and upper bound $u_n$ for the $n$th variable in the domain $D$, and $x^*$ denotes the global minimum of the objective function in the given domain $D$. This form of global optimization \ref{eq:GO} represents an \textit{unconstrained global optimization} expression; to add constraints the form would include 
+\begin{align}
+  \label{eq:constrainedGO}
+  subject\ to \nonumber \\
+    g(x) \leq 0, \\ 
+    h(x) = 0 \nonumber
+\end{align}
+This is known as \textit{constraint global optimization}.
+
+In the 1950s, exhaustive searches like the Simplex algorithm \cite{Liberti2000} used this form \ref{eq:GO}. The global minimum was obtained by searching each point in the domain. This method of searching did guarantee the global minimum given enough time to search every possible combination. However, as objective functions became more complex and domains became larger, exhaustive searches became impractical. Researchers have recently begun exploring characterizations of the objective function, looking at constraints and algorithms to develop more efficient methods of obtaining the global minimum. 
+
+ 
+\section{Objective Functions}
+An objective function is the computation that the global optimization is solving. This function can contain a single function or multiple functions to represent a model of a real world problem. These functions have multiple characteristics that are used to determine the difficulty of the global optimization process in the given domain. Some examples are
+\begin{itemize}
+  \item continuity,
+  \item smoothness,
+  \item convexity,
+  \item differentiable, and
+  \item computational time.
+\end{itemize}
+\textit{Continuity} is defined as  
+\begin{align}
+  \label{eq:continuity}
+  \lim_{x\rightarrow b} f(x) = f(b)
+\end{align}
+where $x$ and $b$ are independent points of each other. If Equation \ref{eq:continuity} is satisfied for every point in the set $b$ then the function is \textit{continuous}, otherwise it is \textit{discontinuous}. If the set is distinct and unconnected then the function is \textit{discrete}, typically involving integers or whole numbers. In global optimization, knowing the continuity determines which algorithm to use for the global optimization process. For discrete functions,
+specific algorithms have been developed to handle the space constraints. Some examples of these algorithms are Discrete Particle Swarm Optimization \cite{Kaveh2014} and Branch and Bound algorithm \cite{Liberti2000}, in which numbers are rounded up to nearest set value. In the case of discontinuous objective functions, the space or constraints are modified to make the function either continuous or seem continuous to the solver. Examples of these modifications are
+\begin{itemize}
+    \item return penalizing result when a gap or asymptotic region is explored,
+    \item constrain the space to contain the continuous region of the function,
+    \item add constraints to avoid gaps or asymptotic regions.
+\end{itemize}
+
+\textit{Smoothness} is defined is the highest order of the continuous derivatives the function can achieve. The higher the order of the continuous derivative, the smoother the function is. For global optimization, the smoother the function the easier it is to converge to a minimum. In the case of non-smooth functions it becomes difficult to converge to a global minimum because of inconsistency of the landscape. One example of a non-smooth function is a probabilistic function that cannot guarantee the same result when repeated. In this case, the objective function can return the average of multiple runs of the functions or a hybrid algorithm that uses a local solver to converge to points in the sub-region to smooth out sub-regions, such as hybridizing particle swarm optimization \cite{Kaveh2014}.
+
+\textit{Convexity} is defined as the curvature of the function. A function is \textit{convex} if for any $x_1,x_2 \epsilon X$ that follows
+\begin{equation}
+    \label{eq:convexity}
+    f(\lambda x_1 + (1-\lambda)x_2) \leq \lambda f(x_1)+(1-\lambda)f(x_2),\ 0 \leq \lambda \leq 1.
+\end{equation}
+
+If the Equation \ref{eq:convexity} does not hold, the function is \textit{non-convex}. When a function is convex, all local minima are global minima, and therefore only a local optimizer is needed to solve the problem. However, when the function is non-convex then not every local minima is a global minimum, and the whole domain needs to be searched in order to guarantee that one of local minima is a global minimum. This is shown in Figure \ref{fig:convexity}.  
+
+\begin{figure}[!h]
+  
+  \begin{subfigure}[t]{0.5\textwidth}
+    \begin{tikzpicture}
+      \begin{axis}[xlabel = {$x$},ylabel = {$f(x)$}]
+		  \addplot [domain=-1:1,samples=100,color=red]{x^2};
+        \end{axis}
+      \end{tikzpicture}
+      \caption{}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.5\textwidth}
+      \begin{tikzpicture}
+		\begin{axis}[xlabel = {$x$},ylabel = {$f(x)$},]
+          \addplot [domain=-1:1,samples=100,color=blue]{x^2*sin(x)};
+        \end{axis}
+      \end{tikzpicture}
+      \caption{}
+    \end{subfigure}
+  \caption{Comparison between a convex and non-convex function.}
+  \label{fig:convexity}
+\end{figure}
+
+In the case of a non-convex function, a global optimization method is used to solve the problem. 
+
+\textit{Differentiable} is defined if a function's derivative exists. If a function's derivative does exist, then it can be used to aid global optimization to converge on a solution faster. The solver uses the derivative to determine the \textit{gradient} of function. The gradient is a vector that gives a direction of the slope of the surface. If the gradient moves from a negative to a positive slope then the solver is approaching a minimum (and vice versa for a maximum). When the gradient is
+\begin{equation}
+    \bigtriangledown f(x) = 0,
+\end{equation}
+then a minimum or maximum is obtained. Gradient methods are faster at converging to minima values and are used in some global optimization algorithms like the Multi-Level Single Linkage algorithm \cite{Liberti2000}.
+
+\textit{computational time} is the time it takes to evaluate the objective function at a given point. In global optimization, this is a factor for optimization time and depends on whether concurrency is needed. To speed up the optimization time the objective function can be evaluated in parallel, if possible, or with the use of a parallel algorithm, such as parallel particle swarm optimization \cite{Hung2012}. 
+
+Objective functions are the core of global optimization, and can aid in the optimization process or make it challenging. As discussed in this section, certain characteristics of objective functions can help us determine which algorithm to use. For situations in which an objective function's characteristics are unknown or cannot be provided, a \textit{black box global
+optimization} solver is used. The term ``black box'' refers to a unknown objective function that takes in input information and returns a value. These are commonly known as \textit{derivative-free} algorithms, including Genetic Algorithm \cite{Aguiar}, Differential Evolution \cite{Aguiar}, Particle Swarm Optimization \cite{Kennedy1995}, etc.
+
+
+\section{Constraints}
+Constraints are conditions placed by the user or the algorithm that must be satisfied. User-defined constraints can be implicit or explicit constraints that need to satisfy a condition. \textit{Explicit constraints} satisfy an equality or inequality condition, typically:
+\begin{align}
+    \label{eq:constraints}
+    g_i(x) = 0, 
+    h_j(x) \leq 0 
+\end{align}
+where $i$th and $j$th are constraints for global optimization algorithms. In the event that the constraints are not satisfied, the algorithm will apply a penalty to the evaluated position. Penalties vary based on algorithms. They can be:
+\begin{itemize}
+    \item function set by the user,
+    \item increase (or decrease) the returned value by a factor, 
+    \item increase search basin for local search region.
+\end{itemize}
+
+\textit{implicit constraints} are constraints set within the objective function. This occurs when algorithms do not provide the option to set explicit constraints. The user will then implement a constraint in the objective function that will return a penalized value. In some cases the algorithm will combine explicit constraints to the objective function. One example is the \textit{augmented Lagrangian method} \cite{Mathematics2008}, in which explicit constraints are combined with the objective function to create a sub-problem that is optimized by a local solver. When the constraints are not met, the sub-problem will penalize the value and the process will be repeated until a solution is obtained.
+
+Some algorithms place constraints internally on the objective function to aid in solving the problem. An example of this is the $\alpha$-Branch and Bound algorithm developed by \cite{adjiman2013}, where internal constraints are placed on the lower and upper bounds of the objective function to segment sections that make the function convex. This is a form of \textit{convex relaxation}, where certain manipulations to non-convex functions
+changes the function to convex. In this situation the bounds were changed until the function is convex to then converge to a local minimum in that region. The algorithm then repeats for other regions and compares each local minimum to determine the global minimum. 
+
+Other internal constraints are seen as termination conditions. Examples include:
+\begin{itemize}
+    \item number of evaluations,
+    \item time limit,
+    \item function tolerance,
+    \item position tolerance, and
+    \item no change in current best solution.
+\end{itemize}
+
+Any of the above conditions set in an algorithm has to be satisfied before termination of the global optimization process. 
+
+\section{Algorithms}
+Global optimization algorithms have traditionally been divided into two main types, stochastic and deterministic. 
+\subsection{Deterministic}
+Deterministic algorithms guarantee finding the global minimum by searching the whole
+domain with tight convergence properties \cite{Pinter2002}. In 1969, the Branch and Bound algorithm \cite{Liberti2000} was one of the most well-known algorithms for solving complex problems like the travelling salesman problem \cite{Liberti2000}. Other deterministic algorithms include interval optimization \cite{Accary2008}, algebraic techniques \cite{Veltman1972}, and DIRECT \cite{Jones1993}. One weakness of deterministic algorithms is they can take large amount of time to find the global minimum, which is not practical to the user. 
+\subsection{Stochastic}
+Stochastic algorithms, developed in the seventies, use adaptive random methods to obtain a feasibly close global minimum solution in a reasonable amount of time to the user. Unlike deterministic algorithms, stochastic algorithms cannot guarantee finding a global minimum. Because of this property of stochastic algorithms, further research has been directed towards obtaining better global minima for different classifications of problems \cite{Aguiar,Pinter2002}. Various sub-categories of stochastic algorithms have appeared, including probabilistic approaches \cite{Aguiar}, Monte Carlo approaches \cite{Aguiar}, evolutionary algorithms \cite{Aguiar} and metaheuristic methods \cite{Can2015}. Each sub-category targets a different problem
+and shows various improvements on different types of functions. Some well-known algorithms include: particle swarm optimization (evolutionary algorithm) \cite{Kennedy1995}, differential evolution (metaheuristic method) \cite{Aguiar}, genetic algorithm (evolutionary algorithm) \cite{Aguiar}, cross-entropy method (Monte-Carlo algorithm) \cite{Aguiar}, and simulated annealing (probabilistic algorithm) \cite{Aguiar}. Two algorithms used to solve the applications in Chapter \ref{applications} are Global Search and Particle Swarm Optimization.
+\subsubsection{Global Search}
+\textit{Global Search} (GS) is a hybrid heuristic algorithm that generates population points using the scatter-search algorithm \cite{Glover1998a} and a local solver to optimize around the points. GS starts by locally optimizing around the initial point, $x0$, which the user provides to the algorithm. If the local optimization converges, various parameters are recorded, including:
+\begin{itemize}
+    \item initial point,
+    \item convergent point,
+    \item final object function value, and
+    \item score value. 
+\end{itemize}
+
+The \textit{score value} is determined by taking the sum of the objection function value and any constraint violations. If the point is feasible then the score value is equal to the objective function value. Otherwise every constraint not satisfied adds an additional constraint violation value, typically one thousand. This is a form of a penalty function, the purpose of which is to deter exploration around points that do not satisfy the constraints. 
+
+The algorithm will then generate trial points using the scatter-search algorithm and evaluate each point for its score value. The point with the best score value is optimized by the local solver. The same information is stored on this trial point as the new initial point. 
+
+The algorithm then initializes the center points and radii of the basins of attraction. We make the heuristic assumption that \textit{basins of attraction} are spherical. Two spheres are thus centred around the convergent points of the initial and best trial points, with the radii being the distance from the start points to the convergent points of the local optimization. These estimated basins can overlap. 
+
+A local solver threshold is initialized to be less than the two convergent objective function values. If those points' score values are infeasible then the value is equal to the score value of the first trial point. 
+
+Two counters (one counter per basin) are initialized to zero. These counters are associated with the number of consecutive trial points that lie within the respective basins of attraction, and record the number of times a score value is greater than the local solver threshold. 
+
+The algorithm then proceeds to evaluate each trial point using the local optimizer, provided the following conditions hold:
+
+
+\begin{itemize}
+\item Condition 1
+    \begin{equation}
+        \label{eq:condition1}
+        | x_i - b_j | > dr_j
+    \end{equation}
+        where $x_i$ is the $i$th trial point, $b_j$ is the $j$th basin of attraction center, $d$ is the distance threshold factor (with a default value of $0.75$), and $r_j$ is the radius of the $j$th basin of attraction. 
+    \item Condition 2 \[ score(x_i) < l\] where l is the local solver threshold.
+    \item Condition 3 (optional) $x_i$ satisfies bound and inequality constraints.
+\end{itemize}
+If all conditions are met then the local solver runs on the trial point, $x_i$. If the local solver converges then the global optimum solution is updated, provided one of the following conditions is satisfied:
+\begin{align}
+    \label{eq:updateglobal}
+    |xc_k - xc_i | > T_x \max ( 1,|xc_i| ) \nonumber \\ 
+    or \\
+    |fc_k - fc_i | > T_f \max ( 1,|fc_i| )  \nonumber
+\end{align}
+where $xc_k$ and $xc_i$ are the $k$th and $i$th convergent points for the $k$th and $i$th trial points, respectively; $fc_k$ and $fc_i$ are the objective function values for the $k$th and $i$th convergent points, respectively; ; $T_x$ and $T_f$ are the $x$ tolerance and function tolerance, respectively, their default values being $1\dot 10^-8$. 
+
+The basin radius and local solver threshold are likewise updated if the local solver converges. The updates are as follows:
+\begin{itemize}
+    \item threshold is set to the score value at the trial point, and
+    \item basin radius is set to the lesser of (i) the distance from $xc_i$ to $x_i$, and (ii) the maximum existing radius (if any).
+\end{itemize}
+
+If the local solver does not run on the trial point due to the conditions not being satisfied, the two counters are incremented. The first counter is the basin counter, which increments for each basin $b_j$ that $x_i$ is in. The second counter is the threshold counter, which increments if $score(x_i) \geq l$ and otherwise resets to 0. At the beginning of the algorithm both counters are set to zero. 
+
+When each basin counter is equal to the maximum counter value, the basin radius is multiplied by one minus the basin radius factor and the basin counter is reset to zero. When the threshold counter is equal to the maximum counter value, the local solver threshold is increased to
+\begin{equation}
+    l = l + p_f(1+|l|)
+\end{equation}
+where $p_f$ is a penalty threshold factor, and the counter is reset to zero.
+
+\subsubsection{Particle Swarm Optimization}
+Particle Swarm Optimization (PSO) is a black box algorithm developed in 1995 by Kennedy and Eberhart \cite{Kennedy1995}. This algorithm was inspired by a simplified social swarm model, where the algorithm mimics the social behaviour of flocking birds. Each particle is assigned a position. Once evaluated, a global best is assigned to a particle position; the other particles swarm towards it at a stochastic velocity based on the experience of the specific particle and the knowledge of the swarm, as follows: 
+\begin{equation}
+    \label{eq:velocity}
+    v^{k+1}_{i,j} = v^{k}_{i,j} + c_1r_1(x^{k}_b - x^{k}_{i,j}) + c_2r_2(x^{k}_g - x^{k}_{i,j})
+\end{equation}
+where $x^k_{i,j}$ and $v^k_{i,j}$ are the $j$th component of the $i$th particle's position and velocity vector in the $k$th iteration; $r_1$ and $r_2$ are two random numbers; $x_b$ and $x_g$ are the best position the particle experienced and the global best in the swarm, respectively; and $c_1$ and $c_2$ are two parameters that represents the particle's confidence in itself and the swarm, respectively. The position of the particle is then updated
+\begin{equation}
+    \label{eq:position}
+    x^{k+1}_{i,j} = x^k_{i,j} + v^{k+1}_{i,j}
+\end{equation}
+using the velocity obtained by Equation \ref{eq:velocity}. To avoid premature convergence on local minima or over-exploration of the particles, Shi and Eberhart \cite{Eberhart2000} introduced a new term known as \textit{inertia weight}, w. The inertia weight balances out the premature convergence and over-exploration problems by influencing the previous velocity term
+\begin{equation}
+    \label{eq:velocity2}
+    v^{k+1}_{i,j} = wv^{k}_{i,j} + c_1r_1(x^{k}_{local} - x^{k}_{i,j}) + c_2r_2(x^{k}_{global} - x^{k}_{i,j}).
+\end{equation}
+
+This added term showed overall performance increase in the standard PSO algorithm. Later, Clerc \cite{} used a constriction factor to ensure convergence in the particle swarm. This altered the Equation \ref{eq:velocity} to 
+\begin{align}
+    \label{eq:velocity3}
+    v^{k+1}_{i,j} = \chi \big[ v^{k}_{i,j} + c_1r_1(x^{k}_b - x^{k}_{i,j}) + c_2r_2(x^{k}_g - x^{k}_{i,j}) \big] \\
+    \chi = \frac{2}{\big| 2- \phi - \sqrt{\phi^2 - 4\phi}\big|}\ where\ \phi = c_1 + c_2,\ \phi>4, \nonumber
+\end{align}
+This equation also prevents particle divergence. The schematic movement of the particle shown in Figure \ref{fig:particle movement} follows the Equation \ref{eq:velocity3}.
+
+\begin{figure}[!h]
+    \centering
+    \includestandalone[width=5cm]{chapters/chapter_2_Background/particle_movement}
+    \caption{Schematic of the particle movement using Equation \ref{eq:velocity2}}
+    \label{fig:particle movement}
+\end{figure}
+
+When compared to the inertia weight Equation \ref{eq:velocity}, Shi and Eberhart found theirs was equivalent in performance \cite{}. 
+Thus either velocities are used in the standard PSO algorithm: 
+\begin{algorithm}[H]
+  \begin{algorithmic}[1]
+
+    \For{each particle i}
+        \State \textbf{initialization} $x_i$, $v_i$, $xbest_i$ \Comment{random value for $x_i$ and $v_i$}
+        $xbest_i \gets xbest_i$
+        \State \textbf{Evaluate} $f(x_i)$  \Comment{evaluate the objective function at $x_i$}
+        \State \textbf{Update} $xbest_i$ \Comment{update if $f(x_i) < f(xbest_i)$}
+    \EndFor
+    \While{not termination condition}
+        \For{each particle i}
+            \State \textbf{update} xglobal \Comment{update if $f(xglobal) < f(xbest_i)$}
+            \State \textbf{calculate} $v_i$ \Comment{Using one of the PSO velocity equations}
+            \State $x_i = x_i + v_i$
+            \State \textbf{Evaluate} $f(x_i)$
+            \State \textbf{update} $xbest_i$
+        \EndFor
+    \EndWhile
+  \end{algorithmic}
+\caption{Particle Swarm Optimization}
+\label{algorithmPSO}
+\end{algorithm}
+
+Over the past few years multiple variants of the PSO algorithm have been developed: Collision-free PSO \cite{}, Discrete PSO \cite{}, Democratic PSO \cite{}, etc. One variant of PSO, known as Global Convergence PSO, solves the crystal structure prediction problem discussed in Chapter \ref{applications}. Van den Bergh and Engelbrecht \cite{} developed the \textit{Guaranteed Convergence PSO} (GCPSO), whereby particles perform a random search around the global best particle within a dynamic adapted radius.
+This encourages local convergence and addresses stagnation by randomly searching around the global best particle in an adaptive radius at each iteration. The GCPSO uses Equations \ref{eq:velocity2} and \ref{eq:velocity3} to determine the particle's velocity, $v^k_{i,j}$, and to update the inertia weight factor, $w$, over each iteration. The global best particle's velocity is then updated by
+\begin{equation}
+    \label{eq:globalvelocity}
+    v^{k+1}_{i_g} = -x^k_{i_g} + x^k_{i_g} + w^k v^k_{i_g} + \rho^k(1-2r^k_3) \\
+\end{equation}
+where $i_g$ is the index of the particle most recently updated as the global best value, and $r_3$ is a random number between $(0,1)$. The search radius, $\rho^k$, is calculated by
+\begin{eqnarray}
+    \rho^{k+1} & = &
+    \begin{cases}
+        2\rho^k, &\text{if} \check{s}^{k+1} > s_c,\\
+        \frac{1}{2}\rho^k, &\text{if} \check{a}^{k+1}>a_c\\
+        \rho^k, & \mbox{otherwise}
+    \end{cases}
+    \label{eq:rho}
+\end{eqnarray}
+where $s_c$ is the success threshold, and $a_c$ is the failure threshold. A success is indicated when Equation \ref{eq:globalvelocity} results in an improved global best value; otherwise it is a failure. Each time a consecutive success occurs, $s_c$ increases by one; otherwise it is reset to zero (and vice versa for $a_c$). 
+
+    
+
