@@ -1,0 +1,63 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{intersections,shapes, arrows}
+
+\tikzstyle{program} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, text width=3cm, draw=black]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+
+\begin{document}
+
+
+\begin{tikzpicture}[node distance=2cm]
+\tikzstyle{program}  = [rectangle, rounded corners, minimum width=3cm,\
+                       minimum height=1cm,text centered, draw=black]
+\tikzstyle{io}       = [trapezium, trapezium left angle=70, trapezium right angle=110,\
+                       minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{process}  = [rectangle, minimum width=3cm, minimum height=1cm,\
+                       text centered, text width=3cm, draw=black]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm,\
+                        text centered, draw=black]
+\tikzstyle{arrow}    = [thick,->,>=stealth]
+
+
+    \node (in1) [io] {Global Optimization Solver};
+    \node (pythopt) [program, below of=in1] {Setup};
+    \node (solver) [process, below of=pythopt] {Create population};
+    \node (evaluate) [process, below of=solver] {Evaluate};
+    \node (compute) [program,right of=evaluate, xshift=2cm] {Compute Farm};
+    \node (dec) [decision, below of=evaluate,yshift=-1cm] {Terminate?};
+    \node (evolve) [process, left of=dec,xshift=-2cm] {Evolve population};
+    \node (comp1) [program, right of=compute,yshift=1cm,xshift=2cm]  {Computer 1};
+    \node (comp2) [program, right of=compute,xshift=2cm] {Computer 2};
+    \node (comp3) [program, right of=compute,yshift=-1cm,xshift=2cm] {Computer 3};
+    \node (out1) [io, below of=dec,yshift=-1cm] {Output Results};
+
+
+    \draw [arrow] (in1) -- (pythopt);
+    \draw [arrow] (pythopt) -- (solver);
+    \draw [arrow] (solver) -- (evaluate);
+    \draw [arrow,transform canvas={yshift=0.25cm}] (evaluate) -- (compute);
+    \draw [arrow,transform canvas={yshift=-0.25cm}] (compute) -- (evaluate);
+
+    \draw [arrow] (compute) -- (comp1);
+    \draw [arrow] (compute) -- (comp2);
+    \draw [arrow] (compute) -- (comp3);
+
+    \draw [arrow] (comp1) -- (compute);
+    \draw [arrow] (comp2) -- (compute);
+    \draw [arrow] (comp3) -- (compute);
+    \draw [arrow] (evaluate) -- (dec);
+    \draw [arrow] (dec) -- node[anchor=south] {no} (evolve);
+    \draw [arrow] (dec) -- node[anchor=east] {yes} (out1);
+    \draw [arrow] (evolve.north) |-  (evaluate.west);
+
+
+\end{tikzpicture}
+
+\end{document}
+
