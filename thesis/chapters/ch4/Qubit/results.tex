@@ -1,0 +1,61 @@
+By approaching the problem as a feasibility problem, we have been success in obtaining processing times for the error correction gate up to $65$ nano seconds. The following Table~\ref{tab:4 qubit results} show currently running time gates and their current status of highest fidelity.  
+
+\begin{table}[H]
+    \caption{Four qubit intrinsic fidelity results}
+    \centering
+    \begin{tabular}{c|c|c}
+    \hline  $T$ $(ns)$  & Intrinsic fidelity & CPU time \\
+    \hline
+    $150$ &$1.0$      &1 week\\
+    $120$ &$0.999977$ &1 week \\
+    $75$  &$0.999908$ &1 week\\
+    $74$  & $0.9999546$ & 13 days\\
+    $70$  & $0.9999795$ & 3 months \\
+    $65$  & $0.9999785$ & 3 months \\ \hline
+
+    \end{tabular}
+    \label{tab:4 qubit results}
+\end{table}
+
+With success of this method of approaching this problem were proceeding to use a global optimization solver from pythOPT, a python problem solving environment, to solve this problem as well looking into to lower and higher qubit systems. 
+
+
+\begin{table}[H]
+    \caption{Four qubit intrinsic fidelity results}
+    \centering
+    \begin{tabular}{c|c|c}
+    \hline  $T$ $(ns)$  & Intrinsic fidelity & CPU time \\
+    \hline
+    $27$  & $0.999992$ &1 day \\
+    $26$  & $0.9999  $ &1 month\\
+    $25$  & $0.994626$ &1 month\\
+    $23$  & $0.974143$ & 1 month \\
+    $20$  & $0.935444$ & 1 month\\
+    $15$  & $0.907205$ & 1 month\\
+    $10$  & $0.843589$ & 1 month \\ \hline
+
+
+    \end{tabular}
+    \label{tab:3 qubit results}
+\end{table}
+
+\begin{table}[H]
+    \caption{Four qubit intrinsic fidelity results}
+    \centering
+    \begin{tabular}{c|c|c}
+    \hline  $T$ $(ns)$  & Intrinsic fidelity & CPU time \\
+    \hline
+    $500$  &$0.305841$ &2 week\\
+    $300$  &$0.41861$  &2 week \\
+    $250$  &$0.295303$ &1 month\\
+    $200$  &$0.608859$ &1 month\\
+    $200$  &$0.868338$ &1 month\\ \hline
+
+
+    \end{tabular}
+    \label{tab: 5 qubit results}
+\end{table}
+
+By optimizing this problem as a feasibility problem we are able to obtain solutions for three and four qubit system, bring a new approach to optimizing quantum error corrections simulations. These give a promising design to a circuit that will be place on quantum processor chip. These chips can then be dedicated to encoding bit strings for security purposes that are using quantum networks. Likewise, furthers our understanding of optimizing for quantum error correction simulation and pushing
+to solve the five-qubit system. Striving to solve the five-qubit system is the next step to design a stable decoding gate to match the four-qubit encoding gate. 
+

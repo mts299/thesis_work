@@ -1,0 +1,42 @@
+
+\chapter{Introduction}
+\label{introduction}
+
+Optimization is a process to obtain a minimal (or maximal) result for a defined problem. Problems can range from simple functions like $f(x) = x^2$ to complex models (e.g., minimizing the water saturation in a fuel cell). By optimizing the objective functions, parameters for a given objective function are solved to minimize the result. This can lead to new discoveries in research and further the development of new technologies.
+
+Optimization can be local or global. Local optimization searches in a given neighbourhood around a provided candidate solution. The search obtains a local minimum value in the neighbourhood of the domain based on satisfying convergence properties. When searching for a minimum in a case where the local minimum is not guaranteed to be the global minimum, a global solver is needed. Unlike the local solver, a global optimization searches the whole domain (rather than a particular neighbourhood). There are two types of global optimization: deterministic and stochastic \cite{Liberti2000}. These types of global optimizations have found global solutions for  applications including chemical equilibrium, nuclear reactors, curve fitting, vehicle design and cost \cite{Pinter2002}, and many others.
+
+Deterministic algorithms guarantee a global minimum, but they might take a large amount of time to do so insofar as they search the whole domain. In the worst cases, these algorithms have complexities of exponential time. In cases where large amounts of time are not practical, stochastic algorithms are used instead. 
+
+Stochastic algorithms cannot guarantee a global minimum because of the adaptive random searches they deliver. However, they can determine a good candidate minimum in an amount of time specified by the user. Researchers tend to use these algorithms if the exact global minimum is not needed to solve the objective function. There are also various stochastic algorithms that may perform better on specific types of objective functions. Some examples of such algorithms are Particle Swarm Optimization
+\cite{Kennedy1995}, Genetic Algorithm \cite{Aguiar}, and Simulated Annealing \cite{Aguiar}. 
+
+Various types of objective functions lead to various challenges for the global solver. One kind of challenge is premature local convergence, which happens when a global solver gets stuck exploring a local minimum. This wastes time that could be spent finding a global minimum; it can also lead to longer optimization times for deterministic algorithms, or to a poor global candidate for stochastic algorithms. Objective functions that have the potential for premature local convergence are non-convex
+functions for which local minima are not guaranteed to be global minima. Thus, a solver gets stuck in a local minimum, making it difficult to find a global minimum value. 
+
+Failure can also occur in the objective function itself. The optimization process might face a graceful shutdown that requires restarting the process and re-evaluating the objective function in hopes a failure does not occur. One type of failure is the result of a resource contention. Resource contention can occur when both the parallel global optimization algorithms and the objective function use up various resources (processors and memory) or when multiple objective functions that demand more
+resource power are running simultaneously. Depending on the machine and the scheduling policy, resource contention can lead to serial optimization or failure. 
+
+Another challenge for global optimization involves monitoring the objective function to determine whether further action is needed, or in order to obtain extra information. The user has the flexibility to change various properties of the function. This can affect the sensitivity of the optimization process, often increasing or decreasing the time required to obtain a global minimum. The user may also want to derive external information from the objective function, such as 
+\begin{itemize}
+  \item specific properties of the model, 
+  \item post processing of data, or
+  \item the top $N$ best results the algorithm has found.
+\end{itemize}
+
+The contributions to solving these challenges are the software Computefarm and the Optimization Database. Computefarm is a distributed system that uses idle computer resources on various client computers to run multiple function evaluations at once. It can speed up the iteration process of the given solver, and thereby speed up the search for the global minimum in a problem. It is also fault tolerant to failures of a farmed computer by allowing the global optimization process to continue without
+the need to restart. 
+
+The Optimization Database is a flexible database that used by the model to store the results and any extra information pertaining to the simulation or post processing of the data is stored into the database. With this information the user can i) determine if the solver is stuck at a local minimum, ii) initiate other solvers based on currently stored data, or iii) use the data to further analyse the model. 
+
+In this, thesis we apply Computefarm and the Optimization Database to two applications: quantum error correction circuit design and crystal structure prediction. In the first problem, a circuit is designed to correct for errors in quantum-processor systems. Unlike transistor-based computers, quantum computers cannot be controlled using a software-based design. Instead, they are controlled directly from a circuit component. This makes the process of manufacturing circuits and the testing of
+desired reliability quite costly. In light of this, several models have been designed to simulate a quantum error correction circuit for the purpose of determining the effect of error correction on a given $n$-qubit system. To ensure high reliability (also known as fidelity) of the circuit design, the circuit parameters are optimized so that the model returns the desired fidelity of $99.99\%$ \cite{Barends2014,Ghosh2013}. This is the highest modelled fidelity needed for a circuit design
+to achieve the in experimental fidelity of  $99.9\%$ that cannot improve any higher due to external noise that simulation cannot account for. In this thesis the $3$-qubit and $4$-qubit systems are solved using the global optimization and the software applications.
+
+Crystal structure prediction has been used in the past decade to approximate the most stable structures of a compound at a particular temperature and pressure environment. Because there is a large variety of lattice positions for a given compound, testing every possible lattice structure at a desired temperature and pressure can be taxing. Researchers thus use Ab Initio structure codes to calculate properties of the given lattice in the hope of discovering a new structure for a given compound.
+One particular property that Ab Initio codes return is the total energy of the provided lattice structure. This energy represents the stability of the structure in the given environment. The lower the energy, the more stable the structure and the potential of having interesting properties. For example, finding a structure harder than diamond seems impossible experimentally; however, by globally optimizing a specific compound in a given environment, a new stable structure can be discovered. In
+this thesis, various crystal structures (Carbon, Silicon, and Silicon dioxide) are found by optimizing for the minimal energy and storing the top stable structures in the database.  
+
+The remainder of this thesis is structured as follows. Chapter \ref{background} gives the background on global optimization algorithms used in this thesis. Chapter \ref{methods} documents the software developed, Computefarm and the Optimization Database. Chapter \ref{applications} describes the two applications, quantum error correction circuit design and crystal structure prediction, as well as how the software was used to aid in
+solving these problems. Final Chapter \ref{conclusion} summarizes the results obtained for the two applications and the benefits the software prioritized for solving the applications.
+

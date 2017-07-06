@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{python}
+\begin{document}
+\begin{figure}
+\centering
+\begin{python}
+#
+from pulse_graph import piecewiseConstantPlot
+import sys
+
+
+save_stdout = sys.stdout
+sys.stdout = open('trash', 'w')
+
+piecewiseConstantPlot(24,3)
+sys.stdout = save_stdout
+\end{python}
+\includegraphics{T_24_pc.png}
+\caption{$y(x)=\frac{\sin(x)}{x}$}
+\end{figure}
+
+\end{document}
+

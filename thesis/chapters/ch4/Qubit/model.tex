@@ -1,0 +1,76 @@
+
+
+
+The Toffoli gate is a universal gate set\cite{Zahedinejad2015} for quantum computers that has the property to be in reversible circuits.   Thus can be utilized in gate operations like encoding and decoding because the are the reversed operations of each other. Combined with a single shot measurement scheme allows the circuit to optimal in processing time, however this comes at cost with higher error by taking only one reading. Therefore by optimizing the circuit design to obtain an minimal
+processing time that obtains an intrinsic fidelity greater than $99.99\%$, these gates can then be utilized in encoding applications and other reversal logic gates. 
+
+To obtain this high intrinsic fidelity an error correction component needs to be placed in the circuit design, this is done by implementing a controlled Z gate that is known for its ability to flip any bit in the system. Primarily it can be used to flip any error bits. Therefore the error correction component is optimized to obtain a minimal processing time to produces a intrinsic fidelity greater than $99.99\%$\cite{Barends2014}.
+
+To do this the following model is optimized using a hybrid global optimization solver, Global Search from MATLABs Global Optimization toolbox, to optimize the circuit constants for a given processing time that satisfies the constraint
+\begin{equation}
+    \label{eq:feasibility}
+    0.9999 \leq f(x).
+\end{equation}
+
+The model uses the excitation energy states to determine the qubit state. Because electrons do not like to be excited too long they release some of the energy over time this can then be read in to determine the qubit states. However, because of quantum mechanics there is no way to determine the qubit state as it can be in both states at the same time until it observed. The observation of an electron is the frequency it release from shifting energy states this is known as the shift frequency
+($\Delta_k(t)$) and the anharmonicity  ($\eta_{jk}$) of the shift in frequency for each qubit is measured. By knowing these two factors and using Planks constant, $h$, the qubit state with respect to the $j$th excitation level can be determined by
+\begin{equation}
+  \label{eq:qubit energy}
+  E = h(j\Delta_k(t)-\eta_{jk}).
+\end{equation}
+
+One other factor that is considered when reading qubit states, is that they can interact with one another because their charge and energy being released by an electron this interactions is called entanglement. To measure how strong the interaction between two electrons is a couple strength,$g_k$, is determined, this is experimentally measured constant. The coupling strength is only determine between the $X$ and $Y$ axis because they are controlled in the controlled-controlled-controlled-Z
+(CCCZ) gate, which is for a four qubit system. 
+The $X$ and $Y$ coupling operators \cite{Ghosh2013} is represented as
+\begin{gather}
+    \label{eq: coupling operators}
+  X_k = \sum^n_{j=1} \sqrt{j}\big| j-1 \big\rangle_k \big\langle j |_k + hc \\
+Y_k = -\sum^n_{j=1} \sqrt{-j}\big| j-1 \big\rangle_k  \big\langle j |_k + hc.
+\end{gather}
+
+By obtaining the excitation energy \eqref{eq:qubit energy} and coupling operators \eqref{eq: coupling operators}, a Hamiltonian of the qubit states can then be determined. The Hamiltonian that is first determined is the drift Hamiltonian that describes the system of states that cannot be controlled the CCCZ gate and show the natural energy transition of the system
+
+\begin{equation}
+    \label{eq:drift hamiltonian}
+  \frac{\hat{H}^{dr}(t)}{h} = \sum^{n-1}_{k=1} \frac{g_k}{2} (X_kX_{k+1}+Y_kY_{k+1})
+ \end{equation}
+
+The next Hamiltonian that is constructed is the controlled Hamiltonian, this Hamiltonian represents the part of the system that is controlled by the CCCZ gate over time,$t$. 
+ 
+\begin{equation}
+  \label{eq:controlled hamiltonian}
+  \frac{\hat{H}^{C}(t)}{h} = \sum^n_{k=1} \sum^n_{j=0} (j\Delta_k(t)-\eta_{jk}) |j \big\rangle_k \big\langle j|_k
+\end{equation}
+
+In \eqref{eq:controlled hamiltonian} the parameters that are being optimized over is the shift frequency, $\Delta_k(t)$, at a given time. The predicted shift frequency is subtracted by the anharmocity, $\eta_{jk}$, of the qubit system to determine any error.  
+
+By adding both Hamiltonians \eqref{eq:controlled hamiltonian} and \eqref{eq:drift hamiltonian}, the general Hamiltonian of qubit system \cite{Zahedinejad2015} is determine to be
+
+\begin{gather}
+    \label{eq:qubit hamiltonian}
+    \hat{H} \big( \Delta_{k(t)} \big) = \hat{H}^{dr} + \sum^{n}_{k=1} \Delta_{k(t)} \hat{H}^{C(t)} \\
+    \frac{\hat{H}(t)}{h} = \sum^n_{k=1} \sum^n_{j=0} (j\Delta_k(t)-\eta_{jk}) |j \big\rangle_k \big\langle j |_k + \sum^{n-1}_{k=1} \frac{g_k}{2} (X_kX_{k+1}+Y_kY_{k+1}).
+\end{gather}
+
+By varying qubit Hamiltonian \eqref{eq:qubit hamiltonian} over a duration of time to measure the qubit states, $\Theta$, the unitary qubit state evolution for the whole system can be determined for a number of processing steps, $T$. 
+
+\begin{equation}
+  \label{eq:evolution operator}
+    U\big( \Delta_k(\Theta) \big) = T e^{\Big\{ -i \int_{0}^{\Theta} \hat{H}\big( \Delta_k(\tau) \big) d\tau \Big\} }. 
+\end{equation}
+
+Because electrons can be excited to higher energies that are not necessary to the gate computation, the unitary evolution matrix gets projected onto matrix that only utilizes the desired energy states,  
+
+\begin{equation}
+    \label{eq:projected}
+    U_{\mathscr{P}} \big(\Delta_k (\Theta) \big) =  \mathscr{P} U \big(\Delta_k(\Theta) \big) \mathscr{P}.
+\end{equation}
+
+With the projected unitary evolution matrix \eqref{eq:projected} the required information of the system is obtained and the intrinsic fidelity is determined
+
+\begin{equation}
+    \mathscr{F}\big(\Delta_k(\Theta)\big)=\frac{1}{N}\Bigg| \mathrm{Tr}\bigg( CCCZ^{\dagger} U_\mathscr{P}\big(\Delta_k(\Theta) \big) \bigg) \Bigg|.
+\end{equation}
+
+
+This model describes the general n-qubit system and applying the four qubit CCCZ gate to obtain the overall intrinsic fidelity.

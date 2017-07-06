@@ -1,0 +1,31 @@
+\contentsline {chapter}{Permission to Use}{i}
+\contentsline {chapter}{Abstract}{ii}
+\contentsline {chapter}{Acknowledgements}{iii}
+\contentsline {chapter}{Contents}{v}
+\contentsline {chapter}{List of Tables}{vi}
+\contentsline {chapter}{List of Figures}{vii}
+\contentsline {chapter}{List of Abbreviations}{viii}
+\contentsline {chapter}{\numberline {1}Introduction}{1}
+\contentsline {chapter}{\numberline {2}Global Optimization}{4}
+\contentsline {section}{\numberline {2.1}Objective Functions}{5}
+\contentsline {section}{\numberline {2.2}Constraints}{7}
+\contentsline {section}{\numberline {2.3}Algorithms}{8}
+\contentsline {subsection}{\numberline {2.3.1}Deterministic}{8}
+\contentsline {subsection}{\numberline {2.3.2}Stochastic}{8}
+\contentsline {subsubsection}{Global Search}{9}
+\contentsline {subsubsection}{Particle Swarm Optimization}{11}
+\contentsline {chapter}{\numberline {3}Software}{14}
+\contentsline {section}{\numberline {3.1}Computefarm}{14}
+\contentsline {subsection}{\numberline {3.1.1}Inspiration}{14}
+\contentsline {subsection}{\numberline {3.1.2}Requirements}{14}
+\contentsline {subsection}{\numberline {3.1.3}Structure}{15}
+\contentsline {section}{\numberline {3.2}Optimization Database}{20}
+\contentsline {subsection}{\numberline {3.2.1}Inspiration}{20}
+\contentsline {subsection}{\numberline {3.2.2}Requirements}{21}
+\contentsline {subsection}{\numberline {3.2.3}Schema}{21}
+\contentsline {chapter}{\numberline {4}Applications}{24}
+\contentsline {section}{\numberline {4.1}Crystal structure prediction}{28}
+\contentsline {chapter}{\numberline {5}Conclusion}{29}
+\contentsline {chapter}{References}{30}
+\contentsline {chapter}{Appendix \numberline {A}Sample Appendix}{32}
+\contentsline {chapter}{Appendix \numberline {B}Another Sample Appendix}{33}

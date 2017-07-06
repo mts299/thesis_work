@@ -1,0 +1,131 @@
+\begin{thebibliography}{10}
+
+\bibitem{Accary2008}
+G.~Accary, D.~Morvan, and S.~Me.
+\newblock {The Human Line-1 Retrotranspsons Creates DNA Double Strand Breaks}.
+\newblock {\em Fire Safety Journal}, 93(5):173--178, 2008.
+
+\bibitem{adjiman2013}
+C.~S. Adjiman.
+\newblock {A global optimization method, aBB, for general twice-differentiable
+  constrained nlps}.
+\newblock {\em Journal of Chemical Information and Modeling}, 53(9):1689--1699,
+  2013.
+
+\bibitem{Aguiar}
+H.~Aguiar and O.~Junior.
+\newblock {\em {Evolutionary Global Optimization , Manifolds and
+  Applications}}.
+\newblock Springer, 2016.
+
+\bibitem{Barends2014}
+R.~Barends, J.~Kelly, A.~Megrant, A.~Veitia, D.~Sank, E.~Jeffrey, T.~C. White,
+  J.~Mutus, A.~G. Fowler, B.~Campbell, Y.~Chen, Z.~Chen, B.~Chiaro,
+  A.~Dunsworth, C.~Neill, P.~O'Malley, P.~Roushan, A.~Vainsencher, J.~Wenner,
+  a.~N. Korotkov, a.~N. Cleland, and J.~M. Martinis.
+\newblock {Superconducting quantum circuits at the surface code threshold for
+  fault tolerance}.
+\newblock {\em Nature}, 508(7497):500--503, 2014.
+
+\bibitem{Can2015}
+U.~Can and B.~Alatas.
+\newblock {Physics Based Metaheuristic Algorithms for Global Optimization}.
+\newblock {\em American Journal of Information Science and Computer
+  Engineering}, 1(3):94--106, 2015.
+
+\bibitem{Dattani2014}
+N.~S. Dattani, N.~Bryans, E.~Lucero, R.~Barends, Y.~Chen, J.~Kelly,
+  M.~Mariantoni, A.~Megrant, P.~O. Malley, D.~Sank, A.~Vainsencher, J.~Wenner,
+  T.~White, Y.~Yin, A.~N. Cleland, and J.~M. Martinis.
+\newblock {Quantum factorization of 56153 with only 4 qubits}.
+\newblock {\em Nature Physics}, 8(143):1--6, 2014.
+
+\bibitem{Ghosh2013}
+J.~Ghosh, A.~Galiautdinov, Z.~Zhou, A.~N. Korotkov, J.~M. Martinis, and M.~R.
+  Geller.
+\newblock {High-fidelity controlled-??Z gate for resonator-based
+  superconducting quantum computers}.
+\newblock {\em Physical Review A - Atomic, Molecular, and Optical Physics},
+  87(2):1--19, 2013.
+
+\bibitem{Glover1998a}
+F.~Glover.
+\newblock {A Template for Scatter Search and Path Relinking}.
+\newblock {\em Artificial Evolution}, 1363(February 1998):2--51, 1998.
+
+\bibitem{Hung2012}
+Y.~Hung and W.~Wang.
+\newblock {Accelerating parallel particle swarm optimization via GPU}.
+\newblock {\em Optimization Methods and Software}, 27(1):33--51, 2012.
+
+\bibitem{Jones1993}
+D.~R. Jones, C.~D. Perttunen, and B.~E. Stuckman.
+\newblock {Lipschitzian optimization without the Lipschitz constant}.
+\newblock {\em Journal of Optimization Theory and Applications},
+  79(1):157--181, 1993.
+
+\bibitem{Kaveh2014}
+A.~Kaveh and BOOK.
+\newblock {\em {Advances in Metaheuristic Algorithms for Optimal Design of
+  Structures}}.
+\newblock Springer, 2014.
+
+\bibitem{Kennedy1995}
+J.~Kennedy and R.~Eberhart.
+\newblock {Particle swarm optimization}.
+\newblock {\em Neural Networks, 1995. Proceedings., IEEE International
+  Conference on}, 4:1942--1948 vol.4, 1995.
+
+\bibitem{Kennedy1997}
+J.~Kennedy and R.~Eberhart.
+\newblock {A discrete binary version of the particle swarm algorithm}.
+\newblock {\em 1997 IEEE International Conference on Systems, Man, and
+  Cybernetics. Computational Cybernetics and Simulation}, 5:4104--4108, 1997.
+
+\bibitem{Krink2002}
+T.~Krink, J.~S. Vesterstrom, and J.~Riget.
+\newblock {Particle swarm optimisation with spatial particle extension}.
+\newblock {\em Proceedings of the 2002 Congress on Evolutionary Computation,
+  CEC 2002}, 2(February 1998):1474--1479, 2002.
+
+\bibitem{Liberti2000}
+L.~Liberti.
+\newblock {Introduction to global optimization}.
+\newblock {\em Ecole Polytechnique}, 2000.
+
+\bibitem{Clerc1999}
+C.~M.
+\newblock The swarm and the queen: towards a deterministic and adaptive
+  particle swarm optimization.
+\newblock {\em 1999 ICEC, Washington DC}, pages 1951--1957, 1999.
+
+\bibitem{Mathematics2008}
+A.~Mathematics.
+\newblock {Global Convergence of a Class of Trust Region Algorithms for
+  Optimization with Simple Bounds Author ( s ): A . R . Conn , N . I . M .
+  Gould , Ph . L . Toint Published by : Society for Industrial and Applied
+  Mathematics Stable URL : http://www.jstor.org/st}.
+\newblock {\em Society}, 25(2):433--460, 2008.
+
+\bibitem{Pinter2002}
+J.~D. Pint{\'{e}}r.
+\newblock {Global Optimization: Software, Test Problems, and Applications}.
+\newblock {\em Handbook of Global optimization}, 2:515--569, 2002.
+
+\bibitem{Shi}
+Y.~Shi and R.~Eberhart.
+\newblock {A Modified Particle Swarm Optimizer}.
+\newblock {\em IEEE}, pages 69--73, 1998.
+
+\bibitem{Van2002}
+A.~Van~den Bergh~F, Engelbrecht.
+\newblock A new locally convergent particle swarm optimizer.
+\newblock {\em IEEE conference on systems, man and cybernetics}, 2002.
+
+\bibitem{Veltman1972}
+M.~Veltman.
+\newblock {COMPUTER PItYSICS COMMUNICATIONS 3, SUPPL. (1972) 75-78.
+  NORTtI-IIOLLAND PUBI ISIIINC COMPANY ALGEBRAIC}.
+\newblock {\em COMPUTER PHYSICS COMMUNICATION 3}, pages 75--78, 1972.
+
+\end{thebibliography}

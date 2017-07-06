@@ -29,7 +29,7 @@ def errorFunctionPlot(T,n):
 
     t1 = np.arange(0.5,T,1.0)
     t = range(0,T-1)
-    t2 = np.arange(0,T-1,0.1)
+    t2 = np.arange(0,T-1,0.01)
     error1 = []
     error2 = []
     error3 = []
@@ -38,28 +38,37 @@ def errorFunctionPlot(T,n):
     e_pulse2 = []
     e_pulse3 = []
 
-    delta_t = T/(T*3-1)
     for i in  range(0,T-1):
         error1.append( ((delta1[i]+delta1[i+1])/2)+((delta1[i+1]-delta1[i])/2)*erf((4/(t1[i+1]-t1[i]))*(i-((t1[i]+t1[i+1])/2))))
         error2.append( ((delta2[i]+delta2[i+1])/2)+((delta2[i+1]-delta2[i])/2)*erf((4/(t1[i+1]-t1[i]))*(i-((t1[i]+t1[i+1])/2))))
         error3.append( ((delta3[i]+delta3[i+1])/2)+((delta3[i+1]-delta3[i])/2)*erf((4/(t1[i+1]-t1[i]))*(i-((t1[i]+t1[i+1])/2))))
 
-    t2 = np.arange(0.0,T-2,0.1)
+    t2 = np.arange(0.0,T-2,0.01)
 
-    for i in range(0,len(t2)):
-        j = int(np.floor(t2[i]))
-        e_pulse1.append(((delta1[j]+delta1[j+1])/2)+(((delta1[j+1]-delta1[j])/2)*erf((4/((j+1)-j))*(i-(j+(j+1)))/2)))
-        e_pulse2.append(((delta2[j]+delta2[j+1])/2)+((delta2[j+1]-delta2[j])/2)*erf((4/((j+1)-j))*(i-(j+(j+1))/2)))
-        e_pulse3.append(((delta3[j]+delta3[j+1])/2)+((delta3[j+1]-delta3[j])/2)*erf((4/((j+1)-j))*(i-(j+(j+1))/2)))
+    pulse1 = [];
+    pulse2 = [];
+    pulse3 = [];
 
 
-    plt.plot(t2,e_pulse1,label=r'$\epsilon_1$')
-    plt.plot(t2,e_pulse2,label=r'$\epsilon_2$')
-    plt.plot(t2,e_pulse3,label=r'$\epsilon_3$')
 
-    plt.plot(t,error1,'o',color='black')
-    plt.plot(t,error3,'o',color='black')
-    plt.plot(t,error2,'o',color='black')
+    for i in t2:
+        j = int(np.floor(i))
+        pulse1.append(delta1[j])
+        pulse2.append(delta2[j])
+        pulse3.append(delta3[j])
+
+
+    delta_t = T/(T-1)
+
+    for i in range(0,len(t2)-1):
+        j = int(np.round(t2[i]))
+        e_pulse1.append( (pulse1[i]+pulse1[i+1])/2 + ((pulse1[i+1]-pulse1[i])/2 * erf((5/delta_t)*(t2[i] - (t1[j]+t1[j+1])/2))))
+
+    plt.plot(t2[0:-1],e_pulse1,label=r'$\epsilon_1$')
+
+#    plt.plot(t,error1,'o',color='black')
+#    plt.plot(t,error3,'o',color='black')
+#    plt.plot(t,error2,'o',color='black')
 
 
    # plt.legend()
