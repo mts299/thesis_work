@@ -7,7 +7,7 @@ As discussed in Chapter \ref{background}, global optimization solvers depend on 
 
 
 This is one of the motivations behind Computefarm, a software application that parallelizes global optimization solvers by distributing function evaluations to client computers. Distributing the evaluations out to client computers minimizes resource contention and allows for a number of search-space points to be evaluated simultaneously. Computefarm also handles failures in the client machines. If a client disconnects or fails to run the function evaluation, Computefarm resassigns the evaluation to another client. By contrast, when a single machine faces a failure on its own, the entire optimization process is interrupted and needs to be restarted. By using Computefarm for global optimization algorithms, the user is able to run the program in parallel, avoid high resource contention and obtain fault-tolerance in the function evaluations.   
-  
+\clearpage 
 \subsection{Requirements}
 Computefarm is a distributed system that delegates tasks to multiple client computers. In the case of global optimization, a server distributes function evaluations to client computers. Three things are required to minimize the overhead of using Computefarm. These are:
 \begin{itemize}
@@ -32,7 +32,7 @@ An extra step is taken in Computefarm whereby client machines are reawakened to 
     \caption{Process of a global optimization algorithm using Computefarm}
     \label{fig:computefarm}
 \end{figure}
-Computefarm will take a list of population points and distribute them out to various client computers, which will return a list of results to the global optimization algorithm to further proceed in the process. In this thesis we implement a Particle Swarm Optimization (PSO) algorithm that leverages Computefarm to solve the problems described in Chapter \ref{applications}. The original PSO algorithm is described in Alg. \ref{algorithm PSO} and the Computefarm version in Alg. \ref{CPSO}
+Computefarm will take a list of population points and distribute them out to various client computers, which will return a list of results to the global optimization algorithm to further proceed in the process. In this thesis we implement a Particle Swarm Optimization (PSO) algorithm that leverages Computefarm to solve the problems described in Chapter \ref{applications}. The original PSO algorithm is described in Alg. \ref{algorithmPSO} and the Computefarm version in Alg. \ref{CFPSO}
 
 \begin{algorithm}[H]
   \begin{algorithmic}[2]
@@ -65,10 +65,10 @@ Computefarm will take a list of population points and distribute them out to var
 This algorithm is applied in the PSO variants in the software \textit{pythOPT}, a problem-solving environment, creating a distributed PSO version called Computefarm Particle Swarm Optimization (CFPSO).
 
 To further understand the implementation steps taken in Computefarm, Figure \ref{fig:implementation} shows the overall design of the distributed system. 
-
+\clearpage
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=10cm,height=10cm]{chapters/chapter_3_Software/flowchart2.pdf}
+    \includegraphics[width=10cm,height=15cm]{chapters/chapter_3_Software/flowchart2.pdf}
     \caption{Process of a global optimization algorithm using Computefarm}
     \label{fig:implementation}
 \end{figure}
