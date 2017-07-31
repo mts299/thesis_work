@@ -1,49 +1,57 @@
-Quantum computers are promising technology that is currently being used today by D-Waves, Nasa, google and IBM. Multiple institutes also focus on researching quantum computers and their exponential ability to represent information. This is obtained from the representation of a quantum bit also known as a \textit{qubit}, a qubit is subatomic particle that is measured based on a known property like spin or an energy state. These properties represent states zero or one, same as a
-classical bit. However, qubits also have \textit{superposition} or \textit{entangled} states that the known states become linear combinations. For example in a classical computer two bits can represent one of the four possible values
-\begin{align}
+\section{Quantum error correction circuit design}
+\label{Qubit}
+Quantum computers are promising technology that is currently being used today by D-Waves, Nasa, google and IBM. Multiple institutes also focus on researching quantum computers and their promise to solve non-polynomial hard (NP hard) problems. One problem of interest is prime factorization because its exponential time complexity in a transistor computer versus the polynomial time using the Shor's algorithm in quantum computer. To execute this algorithm, it is assumed extra bit states are
+available to be used in the algorithm for transistor computer this is not possible as it is constrained to zero or one for bit states. However, in a quantum computer the number of states is dependent sub atomic particle property used to represent a bit also known as a \textit{qubit}. A qubit states can be based on a measurement of spin or energy states. These properties represent states zero or one, same as a
+transitor bit. However, qubits also have \textit{superposition} or \textit{entangled} states that are represented as linear combinations. For example in a transitor computer two bits can represent one of the four possible values
+\begin{align*}
     00,\\
     10,\\
     01,\\
     11.
-\end{align}
-To make up these combinations it takes two pieces of information, the first bit value and the second, thus a classical computer takes $N$ bits of information. In a quantum computer two qubits can represent one of the same possible classical computer values. However, qubits are non-deterministic meaning they can be in any combination of states at any point in time known as \textit{superposition}. Therefore to encode the qubits into a specific states, probabilities are
+\end{align*}
+To make up these combinations it takes two pieces of information, the first bit value and the second, thus a transitor computer takes $N$ bits of information. In a quantum computer two qubits can represent zero and one, and any combination of states at any point in time known as \textit{superposition}. Therefore to encode the qubits into a specific state, probabilities are
 given to the qubit system 
-\begin{align}
+\begin{align*}
     \alpha |00 \rangle,\\
     \beta  |10 \rangle,\\
     \gamma |01 \rangle,\\
-    \delta |11 \rangle.\\
-\end{align}
-Thus four pieces of information are given to system giving quantum computers the exponential advantage of $2^N$ ($N$ qubits) bits of information. Because of this advantage, a combination of calculation steps are done simultaneously or reduced to less steps with the use of more information. A strong example of this is prime factorization, where it is NP-hard problem for classical computers. In quantum computers the number fifteen has been solved using the Shor's algorithm
-on a three qubit system in seconds by Lucero \cite{Lucero2013}. With Dattani and Bryans \cite{Dattani2014} factorizing the number 56153 using a four qubit system. However, as it is mentioned in both papers Lucero \cite{Lucero2013} and Dattani \cite{Dattani2014} the error of the qubit systems prevents further work into factorization of higher numbers. With high error rates the success rate becomes lower. This becomes a difficult challenge for quantum cryptography that
-utilizes the fact quantum computers can factor high prime numbers in an efficient amount of time. However, cryptography needs fault tolerance to ensure the security of encryption and the ability to decrypt.
-To insure fault tolerance error correction components have been design to correct for any error in the qubit system. The two main errors in a qubit system is decoherence and measurement error. \textit{Decoherence} is the loss of energy in the qubit system caused by interaction background particles. When two particles interact unintentionally this causes a loss of energy in the system, this energy is the information passed into the system, when the energy is lost the information is
-too. The other error that can occur is measurement error, this is caused by noise in the system. To correct for these errors pulses of energy are used to stabilize the qubit system because cloning qubit states is not possible due to their non-deterministic behaviour. However, stabilizing the system is constricted to specific amount of time because of decoherence. When enough outside interactions happen the qubit system can no longer be stabilized as their is too much loss of information.
-Another challenge is decoherence is not easy to model as it is not easy to predict what background particles will interact with the qubits and how the interaction will affect the system. Noise error is easier to model as it is the noise in qubit system and in logic gate utilizing the system. Therefore by optimizing the error correction circuit design to have a qubit system simulated to have noise error be fault tolerant, then experimentally that circuit can be further optimized for decoherence.
+    \delta |11 \rangle,\\
+\end{align*}
+to produce a linear combination of $\alpha |00 \rangle + \beta  |10 \rangle + \gamma |01 \rangle + \delta |11 \rangle.$
+Thus four pieces of information are given to the system giving quantum computers the exponential advantage of $2^N$ ($N$ qubits) bits of information. Because of this advantage, a combination of calculation steps are done simultaneously or reduced to less steps with the use of more information. Giving the advantage to solving NP hard problems in less amount of time than transistor computers. Relating back to the prime factorization problem, factoring the number fifteen has been using the Shor's algorithm
+on a three qubit system is done in seconds by Lucero \cite{Lucero2013}, with Dattani and Bryans \cite{Dattani2014} factorizing the number i$56153$ using a four qubit system . However, as it is mentioned in both papers Lucero \cite{Lucero2013} and Dattani \cite{Dattani2014} the error of the qubit systems prevents further work into factorization of higher numbers. With high error rates the success rate becomes lower and the qubit system cannot be cloned to later on check and correct for
+error like a transistor computer. Because qubits utilize superposition their states are not guaranteed to be the same at any given point, making it difficult to guarantee $100\%$ error correction rate. However, methods have been developed to minimize and correct errors in a quantum computer to ensure a high fault tolerance. One method that is looked at in this thesis is the controlled-Z gate that uses control-phase gates to control one of the errors in the qubit system. 
 
-In this section the Controlled Controlled Controlled Not (CCCNOT) gate is optimized to obtain a feasible error correction percentage known as \textit{intrinsic fidelity}. A simulation of the CCCNOT gate is optimized to achieve a feasible intrinsic fidelity of $99.99\%$ to guarantee the highest on average experimental gate fidelity of $99.9\%$ \cite{Barends2014}. The CCCNOT simulates a four superconducting charge qubits known as \textit{transmons}. Transmons are used because of the reduced sensitivity to charge
+Three error that occur control-phase gates that are used simulated in model are \textit{decoherence}, \textit{state leakage} and \textit{control time} \cite{Barends2014}. The first error, decoherence, occurs when outside particles interact with the qubit system particles. When these particles interact it causes a change in energy of the qubit that further interferes with the superposition of the qubit system. This interference over time makes the qubit system loss information of its original
+state and causes error in the result. To minimize this error, certain materials can be used to protect the qubit system from incoming particles to reduce interactions
+The other error that can occur is state leakage, this error occurs when higher energy level states are measured that are not desired. Because the qubit system is setup to take in probabilities for subspace that only contains zeros and ones known as a \textit{computational subspace}, then measured states of higher energies than one are not associated to original input. To avoid this from happening, large gate times for measuring energies are used because qubits tend to transition to lower
+energy states, zero or one, over time.
+The final error mentioned is the control error, this error occurs in the gate itself, where reflections or stray inductance in wiring effects the qubit system. Because qubits are controlled by frequencies that change the properties of the particle, inductance of wire can disturb this control and cause error in the system. To correct for this error, low frequency pulses are sent in to stabilize the qubit system, this pulse is known as a \textit{controlled} pulse. However, this becomes a
+circuit design problem that can be simulated with a n-qubit system to be optimized to produce a controlled pulse that correct for the control error. The fault tolerance that only considers control error is known as \textit{intrinsic fidelity}. Because control error is only considered in the optimization of the circuit design, an intrinsic fidelity of $99.99\%$ is needed. Anything higher and it becomes a potential waste of computational time because experimentally the highest intrinsic
+fidelity is $99.9\%$ due to limitations on handling decoherence. 
+
+In this section the controlled-Z (CZ) gate is optimized to obtain an intrinsic fidelity of $99.99\%$ for a three and four qubit system. The qubit systems use superconducting charge qubits known as \textit{transmons}. Transmons are used because of the reduced sensitivity to charge
 noise to aid in reducing error. The states zero and one are represented as energy states of the transmon, $j$. Each transmon location in the system is represented as $k$ that receive pulses from the error correction circuit over a given amount of time, $t$. The shift in frequencies sent to each transmon is represented as $\Delta_k(t)$ (bounded between $-2.5$ and $2.5$ MHz) and anharmonicity of the shift in frequency of each transmon is represented as $\eta_{jk}$ that is measured to be $200$ MHz for the circuit. The
 energy of each $k^{th}$ transmon at each energy level $j$ is
 \begin{equation}
     \label{eq:energy}
     E_{kj} = h(j\Delta_k(t)-\eta_{jk}),
 \end{equation}
-where $h$ is planks constant. As mentioned earlier qubits can entangle with one another, this interaction is represented as a nearest-neighbour coupling strength, $g_k$, between each $kth$ and $(k+1)th$ transmon. The coupling strength is set as $30$ MHz in simulation.  
+where $h$ is planks constant. As mentioned earlier qubits can entangle with one another, this interaction is represented as a nearest-neighbour coupling strength, $g_k$, between each $kth$ and $(k+1)th$ transmon. The coupling strength is set as $30$ MHz in the simulation.  
 
-The energy transition between transmons states is then represented as the $n$ transmon system (in the case of a four qubit system $n=4$)
+The energy transition between each transmon is represented as a $j^n$ block-diagonal Hamiltonian matrix
 \begin{equation}
   \label{eq:hamiltonian}
-  \frac{\hat{H}\big(\delta_k(t)\big)}{h} = \sum^n_{k=1} \sum^n_{j=0} E_{kj} |j \big\rangle_k \big\langle j|_k + \sum^{n-1}_{k=1} \frac{g_k}{2}(X_kX_{k+1}+Y_{k}Y_{k+1}),  
+  \frac{\hat{H}\big(\delta_k(t)\big)}{h} = \sum^n_{k=1} \begin{pmatrix} 0&0& 0&0\\0&\varepsilon_k(t)&0&0\\0&0&2\varepsilon_k(t)-\eta&0\\0&0&0&3\varepsilon_k(t)-\eta'\end{pmatrix}_{k}  + \sum^{n-1}_{k=1} \frac{g_k}{2}(X_kX_{k+1}+Y_{k}Y_{k+1}),  
 \end{equation}
-
-where $X$ and $Y$ are the coupling operators \cite{Ghosh2013}
+where each block corresponds to fixed number of excitations. The $X$ and $Y$ are the coupling operators \cite{Ghosh2013}
 \begin{align}
     \label{eq: coupling operators}
-        X_k = \sum^n_{j=1} \sqrt{j}\big| j-1 \big\rangle_k \big\langle j |_k + hc, \\
-        Y_k = -\sum^n_{j=1} \sqrt{-j}\big| j-1 \big\rangle_k  \big\langle j |_k + hc,
+       X_k=\begin{pmatrix} 0&1& 0&0\\1&0&\sqrt{2}&0\\0&\sqrt{2}&0&\sqrt{3}\\0&0&\sqrt{3}&0\end{pmatrix}_{k}, \quad
+  \frac{Y_k}{\text i}
+  =\begin{pmatrix} 0&-1& 0&0\\1&0&-\sqrt{2}&0\\0&\sqrt{2}&0&-\sqrt{3}\\0&0&\sqrt{3}&0\end{pmatrix}_{k}, 
 \end{align}
-and $hc$ is the Hermitian conjugate. The couple operators \eqref{eq: coupling operators} represent the generalize Pauli spin matrices for each $kth$ transmon.
-
+are the generalized Pauli operators.
 By knowing the Hamiltonian \eqref{eq:hamiltonian} of the transmons system the evolution operator of the system over a time $t$ is represented as
 \begin{equation}
   \label{eq:evolution operator}
