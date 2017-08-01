@@ -21,7 +21,9 @@ class Database:
 
     select_best_value = temp("select f,x from $table_name where f=(select $max(f) from $table_name) limit 1")
 
-    select_best_value_on_condition = temp("select f,x from $table_name where $condition and f=(select $max(f) from $table_name where $condition) limit 1")
+    select_best_value_on_condition = temp("select f,x from $table_name where $condition and f=(select $max(f) from $table_name where $condition) limit $1")
+
+    select_best_n_f_value = temp("select $orderby,$max(f) from $table_name group by $orderby order by $orderby $asc limit $n")
 
     update_status_temp= temp("update settings set status=$status where id=$idvalue")
 

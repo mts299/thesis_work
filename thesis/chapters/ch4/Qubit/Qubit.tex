@@ -15,9 +15,9 @@ given to the qubit system
     \alpha |00 \rangle,\\
     \beta  |10 \rangle,\\
     \gamma |01 \rangle,\\
-    \delta |11 \rangle,\\
+    \Delta |11 \rangle,\\
 \end{align*}
-to produce a linear combination of $\alpha |00 \rangle + \beta  |10 \rangle + \gamma |01 \rangle + \delta |11 \rangle.$
+to produce a linear combination of $\alpha |00 \rangle + \beta  |10 \rangle + \gamma |01 \rangle + \Delta |11 \rangle.$
 Thus four pieces of information are given to the system giving quantum computers the exponential advantage of $2^N$ ($N$ qubits) bits of information. Because of this advantage, a combination of calculation steps are done simultaneously or reduced to less steps with the use of more information. Giving the advantage to solving NP hard problems in less amount of time than transistor computers. Relating back to the prime factorization problem, factoring the number fifteen has been using the Shor's algorithm
 on a three qubit system is done in seconds by Lucero \cite{Lucero2013}, with Dattani and Bryans \cite{Dattani2014} factorizing the number i$56153$ using a four qubit system . However, as it is mentioned in both papers Lucero \cite{Lucero2013} and Dattani \cite{Dattani2014} the error of the qubit systems prevents further work into factorization of higher numbers. With high error rates the success rate becomes lower and the qubit system cannot be cloned to later on check and correct for
 error like a transistor computer. Because qubits utilize superposition their states are not guaranteed to be the same at any given point, making it difficult to guarantee $100\%$ error correction rate. However, methods have been developed to minimize and correct errors in a quantum computer to ensure a high fault tolerance. One method that is looked at in this thesis is the controlled-Z gate that uses control-phase gates to control one of the errors in the qubit system. 
@@ -42,46 +42,71 @@ where $h$ is planks constant. As mentioned earlier qubits can entangle with one 
 The energy transition between each transmon is represented as a $j^n$ block-diagonal Hamiltonian matrix
 \begin{equation}
   \label{eq:hamiltonian}
-  \frac{\hat{H}\big(\delta_k(t)\big)}{h} = \sum^n_{k=1} \begin{pmatrix} 0&0& 0&0\\0&\varepsilon_k(t)&0&0\\0&0&2\varepsilon_k(t)-\eta&0\\0&0&0&3\varepsilon_k(t)-\eta'\end{pmatrix}_{k}  + \sum^{n-1}_{k=1} \frac{g_k}{2}(X_kX_{k+1}+Y_{k}Y_{k+1}),  
+  \frac{\hat{H}\big(\Delta_k(t)\big)}{h} = \sum^n_{k=1} \begin{pmatrix} 0&0& 0&0\\0&\varepsilon_k(t)&0&0\\0&0&2\varepsilon_k(t)-\eta&0\\0&0&0&3\varepsilon_k(t)-\eta'\end{pmatrix}_{k}  + \sum^{n-1}_{k=1} \frac{g_k}{2}(X_kX_{k+1}+Y_{k}Y_{k+1}),  
 \end{equation}
-where each block corresponds to fixed number of excitations. The $X$ and $Y$ are the coupling operators \cite{Ghosh2013}
+where each block corresponds to fixed number of excitations, that acts on Hilbert space $\mathscr{H}_4^{\otimes}n$. The $X$ and $Y$ are the coupling operators \cite{Ghosh2013}
 \begin{align}
     \label{eq: coupling operators}
-       X_k=\begin{pmatrix} 0&1& 0&0\\1&0&\sqrt{2}&0\\0&\sqrt{2}&0&\sqrt{3}\\0&0&\sqrt{3}&0\end{pmatrix}_{k}, \quad
-  \frac{Y_k}{\text i}
-  =\begin{pmatrix} 0&-1& 0&0\\1&0&-\sqrt{2}&0\\0&\sqrt{2}&0&-\sqrt{3}\\0&0&\sqrt{3}&0\end{pmatrix}_{k}, 
+       X_ki &=& \begin{pmatrix} 0&1& 0&0\\1&0&\sqrt{2}&0\\0&\sqrt{2}&0&\sqrt{3}\\0&0&\sqrt{3}&0\end{pmatrix}_{k}, \quad
+  \frac{Y_k}{\text i} &=&\begin{pmatrix} 0&-1& 0&0\\1&0&-\sqrt{2}&0\\0&\sqrt{2}&0&-\sqrt{3}\\0&0&\sqrt{3}&0\end{pmatrix}_{k}, 
 \end{align}
-are the generalized Pauli operators.
-By knowing the Hamiltonian \eqref{eq:hamiltonian} of the transmons system the evolution operator of the system over a time $t$ is represented as
+are the generalized Pauli operators. The Hamiltonian is then truncated up to the $n^{th}$ excitation subspace
+\begin{align}
+  \label{eq: ham}
+  \hat{H}_p(\Delta(t)) = \mathscr{O}_n \hat{H}(\Delta(t)) \mathscr{O}_n^{\dagger},
+  \end{align}
+  because it is the highest excitation that can be achieved in the computational space.
+  The Hamiltonian system \eqref{eq: ham} is then evolved over a time $t$
 \begin{equation}
-  \label{eq:evolution operator}
+  \label{eq:unitary operator}
   U\big( \Delta_k(\Theta) \big) = T e^{\Big\{ -i \int_{0}^{\Theta} \hat{H}\big( \Delta_k(t) \big) dt \Big\} }, 
 \end{equation}
-Where $\Theta$ is time duration of the error correction and $T$ is the time ordered evolution operator \cite{}. 
+Where $\Theta$ is the duration time of the error correction and $T$ is the time-ordering evolution operator \cite{}. 
 
-Because transmons states have to fall between zero or one (bias states) when observed, high energy levels are not considered when correcting the error. To do this a projection is taken on the evolution operator \eqref{eq:evolution operator} to obtain the computation subspace
+Because it is assumed in this system that the qubit system is measured in the computation subspace, the Unitary operator \eqref{eq:unitary operator} is projected to computational subspace to give a $2^n$ matrix
 \begin{equation}
     \label{eq:projected}
-    U_{\mathscr{P}} \big(\Delta_k (\Theta) \big) =  \mathscr{P} U \big(\Delta_k(\Theta) \big) \mathscr{P}.
+    U_{\mathscr{P}} \big(\Delta_k (\Theta) \big) =  \mathscr{P} U \big(\Delta_k(\Theta) \big) \mathscr{P}^{\dagger}.
 \end{equation}
 
-The computational subspace \eqref{eq:projected} is the performance metric intrinsic fidelity. To simplify this down to a single percentage value, the percentage of the intrinsic fidelity is represented as 
+This matrix \eqref{eq:projected} is then compared to the ideal targat CZ gate 
+\begin{align}
+  \label{eq:ideal}
+  U_{\text{target}} $=$ U_l U_{\text{cz}} U_r,
+\end{align}
+where the ideal CZ gate, $U_{\target{cz}}$ is
+\begin{align}
+  U_{\text{cz}} = \begin{pmatrix}
+                    1 & 0 & 0 & 0 \\
+                    0 & 1 & 0 & 0 \\
+                    0 & 0 & 1 & 0 \\
+                    0 & 0 & 0 & -1 \\
+                  \end{pmatrix}
+\end{align}
+and the Unitary phase shift on the $z$-axis, $U_{l,r}$, is
+\begin{align}
+  U_{l,r} &=& R_z(\phi_1) \otimes R_z(\phi_2) \otimes R_z(\phi_3) \otimes \cdots \otimes R_z(\phi_k),\\
+  R_z(\phi) &=& \begin{pmatrix} 1 & 0 \\ 0 & \exp{-i\phi} \end{pmatrix}, \quad \phi_k = ,
+\end{align}
+to obtain the metric of performance in error correction.
+
+The intrinsic fidelity is then obtained by
 \begin{equation}
-    \mathscr{F}\big(\Delta_k(\Theta)\big)=\frac{1}{N}\Bigg| \mathrm{Tr}\bigg( CCCNot^{\dagger} U_\mathscr{P}\big(\Delta_k(\Theta) \big) \bigg) \Bigg|,
+  \label{eq:fidelity}
+    \mathscr{F}\big(\Delta_k(\Theta)\big)=\frac{1}{N}\Bigg| \mathrm{Tr}\bigg( CZ^{\dagger} U_\mathscr{P}\big(\Delta_k(\Theta) \big) \bigg) \Bigg|.
 \end{equation}
-where CCCNot is the ideal gate \cite{}. 
 
-This model represent the objective function to optimize the frequency shifts, $\Delta_k(t)$, for a $n$-transmons system to obtain feasible intrinsic fidelity of $99.99\%$ for a minimal duration time $\Theta$.
+This model \eqref{eq:fidelity} represents the objective function to optimize the frequencies, $\Delta_k(t)$, for a $n$-transmons system to obtain feasible intrinsic fidelity of $99.99\%$ for a minimal duration time $\Theta$.
 
 The optimization problem is presented as follows
 \begin{equation}
     \label{eq:feasibility}
     0.9999 \leq f(x),
 \end{equation}
-where a feasible solution is just needed. 
+where a single feasible solution is desired. 
 
-To solve this problem for the four-qubit ($n=4$) and three-qubit ($n=3$) case we used \textit{MATLABs} global search algorithm from the global optimization toolbox with a non-linear constraint to represent the feasibility condition \eqref{eq:feasibility}. To minimize the duration time of the simulation a brute force method is used by simply solving each case with a duration time and lowering it to find the minimal value. The Optimization Database is used in the optimization process to
-monitor multiple duration time cases and the progress of global optimization. By using this method to solve the problem the following results for the four-qubit case are shown in Table~\ref{tbl:four qubit} and the three qubit case result shown in Table~\ref{tbl:three qubit}. 
+In this thesis the four-qubit and three-qubit case are optimized using \textit{MATLABs} global search algorithm from the global optimization toolbox with a non-linear constraint to represent the feasibility condition \eqref{eq:feasibility}. To minimize the duration time of the simulation a brute force method is used by simply solving each case with a smaller duration time each time the desired fidelity is achieved. The Optimization Database is then used in the optimization process to
+monitor multiple duration time cases and the progress of the global optimization. By using this method to solve the problem the following results for the four-qubit case are shown in Table~\ref{tbl:four qubit} and the three qubit case result shown in Table~\ref{tbl:three qubit}. 
 
 
 
@@ -91,4 +116,4 @@ The feasible pulse for minimal duration time of $65$ nanoseconds for the four qu
 The feasible pulse for minimal duration time of $23$ nanoseconds for the three qubit case is shown in Figure~\ref{fig:three qubit}.
 
 
-By obtaining these results, error correction circuits using the CCCNot gate are developed for further experimental optimization to account for decoherence error to be used in quantum computers.
+By obtaining these results, error correction circuits using the CZ gate are developed for further experimental optimization to account for decoherence error to be used in quantum computers.
