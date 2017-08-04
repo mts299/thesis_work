@@ -31,7 +31,7 @@ circuit design problem that can be simulated with a n-qubit system to be optimiz
 fidelity is $99.9\%$ due to limitations on handling decoherence. 
 
 In this section the controlled-Z (CZ) gate is optimized to obtain an intrinsic fidelity of $99.99\%$ for a three and four qubit system. The qubit systems use superconducting charge qubits known as \textit{transmons}. Transmons are used because of the reduced sensitivity to charge
-noise to aid in reducing error. The states zero and one are represented as energy states of the transmon, $j$. Each transmon location in the system is represented as $k$ that receive pulses from the error correction circuit over a given amount of time, $t$. The shift in frequencies sent to each transmon is represented as $\Delta_k(t)$ (bounded between $-2.5$ and $2.5$ MHz) and anharmonicity of the shift in frequency of each transmon is represented as $\eta_{jk}$ that is measured to be $200$ MHz for the circuit. The
+noise to aid in reducing error. The states zero and one are represented as energy states of the transmon, $j$. Each transmon location in the system is represented as $k$ that receive a pulse from the error correction circuit over a given amount of time, $t$. The shift in frequencies sent to each transmon is represented as $\Delta_k(t)$, where each pulses frequency is varied between $-2.5$ and $2.5$ MHz. The anharmonicity of the shift in frequency of each transmon is represented as $\eta_{jk}$ that is set to $200\ MHz$ for the circuit. The
 energy of each $k^{th}$ transmon at each energy level $j$ is
 \begin{equation}
     \label{eq:energy}
@@ -69,12 +69,12 @@ Because it is assumed in this system that the qubit system is measured in the co
     U_{\mathscr{P}} \big(\Delta_k (\Theta) \big) =  \mathscr{P} U \big(\Delta_k(\Theta) \big) \mathscr{P}^{\dagger}.
 \end{equation}
 
-This matrix \eqref{eq:projected} is then compared to the ideal targat CZ gate 
+This matrix \eqref{eq:projected} is then compared to the ideal target CZ gate 
 \begin{align}
   \label{eq:ideal}
-  U_{\text{target}} $=$ U_l U_{\text{cz}} U_r,
+  U_{\text{target}} = U_l U_{\text{cz}} U_r,
 \end{align}
-where the ideal CZ gate, $U_{\target{cz}}$ is
+where the ideal CZ gate, $U_{\text{cz}}$ is
 \begin{align}
   U_{\text{cz}} = \begin{pmatrix}
                     1 & 0 & 0 & 0 \\
@@ -85,8 +85,8 @@ where the ideal CZ gate, $U_{\target{cz}}$ is
 \end{align}
 and the Unitary phase shift on the $z$-axis, $U_{l,r}$, is
 \begin{align}
-  U_{l,r} &=& R_z(\phi_1) \otimes R_z(\phi_2) \otimes R_z(\phi_3) \otimes \cdots \otimes R_z(\phi_k),\\
-  R_z(\phi) &=& \begin{pmatrix} 1 & 0 \\ 0 & \exp{-i\phi} \end{pmatrix}, \quad \phi_k = ,
+  U_{l,r} =& R_z(\phi_1) \otimes R_z(\phi_2) \otimes R_z(\phi_3) \otimes \cdots \otimes R_z(\phi_k),\\
+  R_z(\phi) =& \begin{pmatrix} 1 & 0 \\ 0 & e^{-i\phi_k} \end{pmatrix}, 
 \end{align}
 to obtain the metric of performance in error correction.
 
@@ -108,12 +108,39 @@ where a single feasible solution is desired.
 In this thesis the four-qubit and three-qubit case are optimized using \textit{MATLABs} global search algorithm from the global optimization toolbox with a non-linear constraint to represent the feasibility condition \eqref{eq:feasibility}. To minimize the duration time of the simulation a brute force method is used by simply solving each case with a smaller duration time each time the desired fidelity is achieved. The Optimization Database is then used in the optimization process to
 monitor multiple duration time cases and the progress of the global optimization. By using this method to solve the problem the following results for the four-qubit case are shown in Table~\ref{tbl:four qubit} and the three qubit case result shown in Table~\ref{tbl:three qubit}. 
 
+\begin{table}[!h]
+  \label{tbl:four qubit}
+  \centering
+\begin{python}
+from data_representation import LatexData
+
+lb = LatexData('t_4qubit')
+lb.generate_table(3,'T',['Duration time $\Theta$','Fidelity'])
+
+\end{python}
+\caption{Duration time results for intrinsic fidelity for the four qubit case.}
+\end{table}
+
+\begin{table}[!h]
+  \label{tbl:three qubit}
+  \centering
+\begin{python}
+from data_representation import LatexData
+
+lb = LatexData('t_3qubit')
+lb.generate_table(3,'T',['Duration time $\Theta$','Fidelity'])
+
+\end{python}
+\caption{Duration time results for intrinsic fidelity for the four qubit case.}
+\end{table}
 
 
-The feasible pulse for minimal duration time of $65$ nanoseconds for the four qubit case is shown in Figure~\ref{fig:four qubit}.
+
+The feasible pulse for minimal duration time of $70$ nanoseconds for the four qubit case is shown in Figure~\ref{fig:four qubit}.
 
 
-The feasible pulse for minimal duration time of $23$ nanoseconds for the three qubit case is shown in Figure~\ref{fig:three qubit}.
+
+The feasible pulse for minimal duration time of $24$ nanoseconds for the three qubit case is shown in Figure~\ref{fig:three qubit}.
 
 
 By obtaining these results, error correction circuits using the CZ gate are developed for further experimental optimization to account for decoherence error to be used in quantum computers.

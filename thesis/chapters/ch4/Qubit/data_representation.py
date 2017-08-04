@@ -7,26 +7,31 @@ class LatexData():
 
         settings = {'table name':table_name
                     }
-        self.db = Database(settings,'simlab_db','db.cs.usask.ca','simlabuser1','simlab_01')
+        self.db = Database(settings,'simlab_db','simlabuser1','db.cs.usask.ca','simlab_01')
 
-    def generate_table(self,n,orderby,column_names,minimum=True,desc=True):
+    def generate_table(self,n,orderby,columns,asc='asc'):
 
-        data = self.db.get_n_best_values(n,sort_by,minimum)
-        print data
+        data = self.db.get_n_best_value(orderby,n,asc)
         column_str = ''
         column_names = ''
-        for c in column_names:
+        for c in columns:
             column_str += 'c|'
-            column_names += c+'&'
-        column_names = column_names[:-1]
+            column_names += c+' & '
+        column_names = column_names[:-2]
         print r"\begin{tabular}{|%s}"%column_str
         print r"\hline"
-        print r"%s\\"%column_names
-        print r"\hline"
+        print r"%s\\ \hline"%column_names
+        for d in data:
+            data_row = ''
+            for c in range(len(columns)):
+                data_row += str(d[c])+' & '
+            data_row = data_row[:-2]
+
+            print r"%s \\ \hline"%data_row
         print r"\end{tabular}"
 
 if __name__ == '__main__':
 
     lb = LatexData('t_4qubit')
-    lb.generate_table(3,'T',['Dueration time \Theta','Fidelity'],False)
+    lb.generate_table(3,'T',['Duration time \Theta','Fidelity'])
 
